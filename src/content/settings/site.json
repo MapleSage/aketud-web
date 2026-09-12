@@ -17,12 +17,11 @@
     {
       "label": "Platform",
       "children": [
-        { "label": "Insurance Command Center", "href": "https://app.aketud.com", "children": [] },
-        { "label": "PAS", "href": "https://pas.aketud.com", "children": [] },
-        { "label": "UW", "href": "https://uw.aketud.com", "children": [] },
-        { "label": "FNOL", "href": "https://fnol.aketud.com", "children": [] },
-        { "label": "Atlas", "href": "https://atlas.aketud.com", "children": [] },
-        { "label": "Social", "href": "https://social.aketud.com", "children": [] }
+        { "label": "Insurance Command Center", "href": "/app", "children": [] },
+        { "label": "PAS", "href": "/pas", "children": [] },
+        { "label": "UW", "href": "/uw", "children": [] },
+        { "label": "FNOL", "href": "/fnol", "children": [] },
+        { "label": "Atlas", "href": "/atlas", "children": [] }
       ]
     },
     {
@@ -67,12 +66,11 @@
       "heading": "Platform",
       "href": "/platform",
       "links": [
-        { "label": "Insurance Command Center", "href": "https://app.aketud.com" },
-        { "label": "PAS", "href": "https://pas.aketud.com" },
-        { "label": "UW", "href": "https://uw.aketud.com" },
-        { "label": "FNOL", "href": "https://fnol.aketud.com" },
-        { "label": "Atlas", "href": "https://atlas.aketud.com" },
-        { "label": "Social", "href": "https://social.aketud.com" }
+        { "label": "Insurance Command Center", "href": "/app" },
+        { "label": "PAS", "href": "/pas" },
+        { "label": "UW", "href": "/uw" },
+        { "label": "FNOL", "href": "/fnol" },
+        { "label": "Atlas", "href": "/atlas" }
       ]
     }
   ],
