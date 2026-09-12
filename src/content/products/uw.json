@@ -1,0 +1,40 @@
+{
+  "order": 3,
+  "slug": "uw",
+  "no": "03",
+  "name": "UW",
+  "eyebrow": "03 — Underwriting Pipeline",
+  "domain": "uw.aketud.com",
+  "sector": "Insurance",
+  "dark": false,
+  "lead": "Six inspectable stages from submitted risk documents to a scored recommendation — with source-level traceability at every step.",
+  "architecture": [
+    "The pipeline runs in six named stages: intake, extraction, enrichment, rules, scoring, recommendation. Each stage can be stopped and read on its own — its inputs, its outputs and why it produced them.",
+    "Every extracted value carries a citation back to the source document and the location within it. An underwriter reviewing a decision sees the page the number came from, not just the number.",
+    "The scoring stage is explainable by design: the factors, their weights and the resulting band are on the file. A recommendation an underwriter cannot interrogate is not one they will sign."
+  ],
+  "stack": [
+    "Rust",
+    "Python",
+    "React",
+    "Azure OpenAI",
+    "Azure Content Understanding"
+  ],
+  "screens": [
+    {
+      "src": "/uploads/uw-1.jpeg.jpg",
+      "alt": "UW — pipeline overview, six stages",
+      "caption": "Six stages — each one inspectable on its own"
+    },
+    {
+      "src": "/uploads/uw-2.jpg",
+      "alt": "UW — extraction with source citations",
+      "caption": "Every extracted value cites the source document and location"
+    },
+    {
+      "src": "/uploads/uw-3.jpg",
+      "alt": "UW — scored recommendation with factors",
+      "caption": "Scoring with visible factors, weights and band"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+---
+/* FeatureList — plain icon + heading + body, 2 columns, no card chrome.
+   Ports Elevate's own "hs-elevate-feature-list" module (icon SVGs are the
+   real Font Awesome paths used on the live site, not stand-ins) — deliberately
+   NOT the boxed/card look Features.astro uses elsewhere on this site.
+   `icon` is a name from src/lib/icons.ts (a CMS `select` field offers these
+   as options) so content never has to carry raw SVG path data. `iconSrc` is
+   an escape hatch for a page with its own real icon *images* (a page's
+   downloaded brand icon set, not one of our inline registry glyphs) —
+   supply one or the other, not both. */
+import { ICONS } from '../../../lib/icons';
+interface Item { icon?: string; iconSrc?: string; heading: string; body: string }
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  sub?: string;
+  items: Item[];
+  /** Anchor target — e.g. so a hero CTA can link to "#why-maplesage". */
+  id?: string;
+}
+const { eyebrow, heading, sub, items, id } = Astro.props;
+---
+<section class="eh-featurelist" id={id}>
+  <div class="hs-elevate-content-wrapper">
+    {(eyebrow || heading || sub) && (
+      <div class="eh-featurelist__head">
+        {eyebrow && <h2 class="hs-elevate-h2">{eyebrow}</h2>}
+        {sub && <p class="eh-featurelist__sub">{sub}</p>}
+      </div>
+    )}
+    <div class="eh-featurelist__grid">
+      {items.map((f) => {
+        const icon = f.icon ? ICONS[f.icon] : undefined;
+        return (
+        <div class="eh-featurelist__item">
+          {icon && (
+            <svg class="eh-featurelist__icon" viewBox={icon.viewBox} aria-hidden="true">
+              <path d={icon.path} fill="currentColor" />
+            </svg>
+          )}
+          {!icon && f.iconSrc && (
+            <img class="eh-featurelist__icon eh-featurelist__icon--img" src={f.iconSrc} alt="" loading="lazy" />
+          )}
+          <div>
+            <h3 class="hs-elevate-h5">{f.heading}</h3>
+            <p>{f.body}</p>
+          </div>
+        </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-featurelist { padding-block: var(--hsElevate--section--medium__verticalPadding); background: var(--hsElevate--color--base--2); }
+  .eh-featurelist__head { max-width: 720px; margin: 0 auto 56px; text-align: center; }
+  .eh-featurelist__head h2 { margin: 0; }
+  .eh-featurelist__sub { margin: 10px 0 0; font-style: italic; font-size: 18px; }
+  .eh-featurelist__grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    column-gap: 64px; row-gap: 40px;
+  }
+  .eh-featurelist__item { display: flex; gap: 20px; align-items: flex-start; }
+  .eh-featurelist__icon {
+    flex: 0 0 auto; width: 28px; height: 28px; margin-top: 4px;
+    color: var(--hsElevate--color--accent--3);
+  }
+  .eh-featurelist__icon--img { width: 40px; height: 40px; object-fit: contain; }
+  .eh-featurelist__item h3 { margin: 0 0 8px; }
+  .eh-featurelist__item p { margin: 0; color: var(--hsElevate--body__fontColor, #4a5a72); }
+
+  @media (max-width: 700px) { .eh-featurelist__grid { grid-template-columns: 1fr; } }
+</style>

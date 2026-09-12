@@ -1,0 +1,13 @@
+---
+import ElevateBase from '../layouts/ElevateBase.astro';
+import Hero from '../components/elevate/sections/Hero.astro';
+import Prose from '../components/elevate/sections/Prose.astro';
+import CtaBand from '../components/elevate/sections/CtaBand.astro';
+import { page } from '../lib/site';
+const c = await page('workplace-policy');
+---
+<ElevateBase title={c.metaTitle} description={c.metaDescription} transparentHeader navActive="AKETUD">
+  <Hero dark eyebrow={c.eyebrow} heading={c.title ?? ''} sub={c.intro} />
+  <Prose blocks={c.prose ?? []} />
+  {c.cta && <CtaBand tone="dark" eyebrow={c.cta.eyebrow} heading={c.cta.line} ctaPrimary={c.cta.button} />}
+</ElevateBase>

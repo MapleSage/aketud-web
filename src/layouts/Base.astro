@@ -1,0 +1,63 @@
+---
+/* Base layout for the blog (/insights/**) — the article/listing content
+   itself stays the dark-editorial design (tokens.css, "do not redesign"),
+   but the site-wide chrome is the same real Header/Footer every other page
+   uses (mega-menu, real logo, full footer) — see elevate-chrome.css for why
+   that doesn't mean importing all of elevate.css here. Previously used its
+   own flat Nav.astro (5 hardcoded links) + a plain Footer.astro; both read
+   a nav model the rest of the site had already moved past, which is what
+   made the blog's header/footer look like a different, disconnected site. */
+import '../styles/tokens.css';
+import '../styles/elevate-chrome.css';
+import '../styles/brands/aketud.css';
+import Header from '../components/elevate/Header.astro';
+import Footer from '../components/elevate/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  navActive?: string;
+  ogImage?: string;
+  /** The page opens on a photo hero (currently just /insights itself) —
+      header starts transparent/white, solidifies on scroll, same as the
+      Elevate pages' full-bleed heroes. */
+  transparentHeader?: boolean;
+}
+const {
+  title, description,
+  canonical = new URL(Astro.url.pathname, Astro.site).href,
+  navActive = '',
+  ogImage,
+  transparentHeader = false,
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+</head>
+<body>
+  <Header active={navActive} transparent={transparentHeader} />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>

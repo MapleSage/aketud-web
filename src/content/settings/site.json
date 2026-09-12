@@ -1,0 +1,95 @@
+{
+  "org": "AKETUD",
+  "logo": "/aketud-logo-blue.png",
+  "logoWhite": "/aketud-logo-white.png",
+  "postsPerPage": 12,
+  "contactEmail": "info@aketud.com",
+  "locations": "Dubai · New Delhi",
+  "nav": [
+    { "label": "Platform", "href": "/platform" },
+    { "label": "Services", "href": "/#services" },
+    { "label": "Insights", "href": "/insights" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "navCta": { "label": "Talk to AKETUD", "href": "/contact" },
+  "menu": [
+    { "label": "Home", "href": "/", "children": [] },
+    {
+      "label": "Platform",
+      "children": [
+        { "label": "Insurance Command Center", "href": "https://app.aketud.com", "children": [] },
+        { "label": "PAS", "href": "https://pas.aketud.com", "children": [] },
+        { "label": "UW", "href": "https://uw.aketud.com", "children": [] },
+        { "label": "FNOL", "href": "https://fnol.aketud.com", "children": [] },
+        { "label": "Atlas", "href": "https://atlas.aketud.com", "children": [] },
+        { "label": "Social", "href": "https://social.aketud.com", "children": [] }
+      ]
+    },
+    {
+      "label": "Services",
+      "children": [
+        { "label": "Insurance Operations", "href": "/#operations", "children": [] },
+        { "label": "AI & Data", "href": "/sageinsure", "children": [] },
+        { "label": "CRM & Customer Operations", "href": "/digital", "children": [] },
+        { "label": "Cloud & Modernization", "href": "/modernization", "children": [] },
+        { "label": "Consulting & Delivery", "href": "/adm", "children": [] },
+        { "label": "QA & Testing", "href": "/qa-testing", "children": [] },
+        { "label": "Innovation", "href": "/innovate", "children": [] }
+      ]
+    },
+    { "label": "Insights", "href": "/insights", "children": [] },
+    { "label": "Contact", "href": "/contact", "children": [] }
+  ],
+  "address": "Dubai, UAE &nbsp;·&nbsp; New Delhi, India",
+  "footerColumns": [
+    {
+      "heading": "AKETUD",
+      "href": "/",
+      "links": [
+        { "label": "Contact", "href": "/contact" },
+        { "label": "Insights", "href": "/insights" },
+        { "label": "Privacy Policy", "href": "/privacy" },
+        { "label": "Terms of Use", "href": "/terms" }
+      ]
+    },
+    {
+      "heading": "Services",
+      "href": "/#services",
+      "links": [
+        { "label": "AI & Data", "href": "/sageinsure" },
+        { "label": "CRM & Customer Operations", "href": "/digital" },
+        { "label": "Cloud & Modernization", "href": "/modernization" },
+        { "label": "Consulting & Delivery", "href": "/adm" },
+        { "label": "QA & Testing", "href": "/qa-testing" }
+      ]
+    },
+    {
+      "heading": "Platform",
+      "href": "/platform",
+      "links": [
+        { "label": "Insurance Command Center", "href": "https://app.aketud.com" },
+        { "label": "PAS", "href": "https://pas.aketud.com" },
+        { "label": "UW", "href": "https://uw.aketud.com" },
+        { "label": "FNOL", "href": "https://fnol.aketud.com" },
+        { "label": "Atlas", "href": "https://atlas.aketud.com" },
+        { "label": "Social", "href": "https://social.aketud.com" }
+      ]
+    }
+  ],
+  "footerLinks": [
+    { "label": "Contact", "href": "/contact" },
+    { "label": "Privacy", "href": "/privacy" },
+    { "label": "Legal", "href": "/terms" }
+  ],
+  "social": [
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/company/13284184/",
+      "icon": {
+        "path": "M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z",
+        "viewBox": "0 0 448 512"
+      }
+    }
+  ],
+  "id": "site"
+}

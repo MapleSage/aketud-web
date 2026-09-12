@@ -1,0 +1,18 @@
+{
+  "metaTitle": "Innovate Insurance Operations — AKETUD",
+  "metaDescription": "Platform, mobile, and CRM systems built to streamline insurance operations and elevate customer engagement.",
+  "eyebrow": "Insurance · Platform",
+  "title": "Innovate Insurance Operations",
+  "intro": "Platform, mobile, and CRM systems that integrate policy administration and claims processing with the customer engagement layer on top of it.",
+  "steps": [
+    { "heading": "Platform Innovation", "body": "A comprehensive insurance platform that streamlines operations, policy administration, and claims processing on one shared record." },
+    { "heading": "Digital Customer Experience", "body": "Omni-channel service across web, mobile, and in-person — the same policy state visible everywhere a customer or agent looks." },
+    { "heading": "Mobile & CRM Solutions", "body": "Mobile capability and CRM integration that carries a customer's journey through renewal, claim, and every touchpoint in between." },
+    { "heading": "End-to-End Solutions", "body": "Insurance technology and operating strategy integrated end to end — from policy administration to customer lifecycle management." }
+  ],
+  "cta": {
+    "eyebrow": "See it running",
+    "line": "Ask what an integrated platform looks like for your book of business.",
+    "button": { "label": "Book a call", "href": "/contact" }
+  }
+}

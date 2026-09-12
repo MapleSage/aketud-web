@@ -1,0 +1,6 @@
+---
+import AketudServiceStory from '../components/AketudServiceStory.astro';
+import { page } from '../lib/site';
+const c = await page('insurance-modernization');
+---
+<AketudServiceStory c={c} variant="modernization" />

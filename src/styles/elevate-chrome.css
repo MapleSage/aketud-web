@@ -1,0 +1,26 @@
+/* Elevate chrome bridge — lets a page outside the Elevate theme (the
+   dark-editorial blog, styles/tokens.css) use the real elevate/Header.astro
+   and elevate/Footer.astro components for its site-wide chrome, without
+   pulling in the rest of elevate.css.
+
+   Why this exists: Header/Footer are fully self-contained (their own
+   scoped <style>, verified — grep for "hs-elevate" in either file: zero
+   hits) except for six shared CSS custom properties. elevate.css itself
+   can't be imported here — it carries ~15 bare-element rules (html, body,
+   a, h1-h6, p, ul/ol, blockquote, button, input...) that would clobber the
+   blog's own typography (tokens.css has the same collision on html/body/a
+   as a *different* design system, not a bug in either file — the two were
+   never meant to load on the same page). This file supplies just the
+   handful of variables Header/Footer read, kept in sync with elevate.css's
+   own :root values by hand — if those change, update both.
+--------------------------------------------------------------------------- */
+@import '@fontsource-variable/inter/wght.css';
+
+:root {
+  --hsElevate--body__font: 'Inter Variable', system-ui, sans-serif;
+  --hsElevate--color--accent--1: #F4F2FF;
+  --hsElevate--color--accent--3: #4F38E0;
+  --hsElevate--color--accent--3--hover: #4029B8;
+  --hsElevate--contentWrapper--wide__maxWidth: 1296px;
+  --hsElevate--section--horizontalPadding: 32px;
+}

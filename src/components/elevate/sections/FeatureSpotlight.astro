@@ -1,0 +1,75 @@
+---
+/* FeatureSpotlight — one flagship product/system called out on its own:
+   eyebrow + name + lead + tech chips + a text link, media the other side
+   in a simple browser-chrome frame. */
+interface Media { src: string; alt?: string }
+interface Props {
+  eyebrow?: string;
+  name: string;
+  lead: string;
+  chips?: string[];
+  href: string;
+  linkText: string;
+  media: Media;
+  mediaSide?: 'left' | 'right';
+}
+const { eyebrow, name, lead, chips = [], href, linkText, media, mediaSide = 'right' } = Astro.props;
+---
+<section class="eh-spotlight">
+  <div class:list={['hs-elevate-content-wrapper eh-spotlight__grid', { 'eh-spotlight__grid--flip': mediaSide === 'left' }]}>
+    <div class="eh-spotlight__copy">
+      {eyebrow && <p class="hs-elevate-tag">{eyebrow}</p>}
+      <h2 class="hs-elevate-display-2">{name}</h2>
+      <p class="eh-spotlight__lead">{lead}</p>
+      {chips.length > 0 && (
+        <ul class="eh-spotlight__chips">
+          {chips.map((c) => <li>{c}</li>)}
+        </ul>
+      )}
+      <a class="eh-spotlight__link" href={href}>{linkText} <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="eh-spotlight__media">
+      <div class="eh-spotlight__chrome">
+        <span></span><span></span><span></span>
+      </div>
+      <img src={media.src} alt={media.alt ?? ''} loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-spotlight { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-spotlight__grid { display: flex; align-items: center; gap: 64px; flex-wrap: wrap; }
+  .eh-spotlight__grid--flip { flex-direction: row-reverse; }
+  .eh-spotlight__copy { flex: 1 1 420px; }
+  .eh-spotlight__copy h2 { margin: 10px 0 16px; }
+  .eh-spotlight__lead {
+    font-size: 17px; line-height: 1.7; max-width: 52ch; margin: 0 0 24px;
+    color: var(--hsElevate--body__fontColor, #4a5a72);
+  }
+  .eh-spotlight__chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; padding: 0; }
+  .eh-spotlight__chips li {
+    font-size: 12.5px; font-weight: 600; letter-spacing: .03em;
+    padding: 6px 12px; border: 1px solid rgba(9,21,43,0.12); border-radius: 999px;
+    color: var(--hsElevate--body__fontColor, #4a5a72);
+  }
+  .eh-spotlight__link {
+    font-weight: 600; color: var(--hsElevate--color--accent--3); text-decoration: none;
+  }
+  .eh-spotlight__link:hover { color: var(--hsElevate--color--accent--3--hover); }
+
+  .eh-spotlight__media { flex: 1 1 480px; min-width: 0; }
+  .eh-spotlight__chrome {
+    display: flex; gap: 6px; padding: 12px 14px;
+    background: #E7EAF0; border-radius: 10px 10px 0 0;
+  }
+  .eh-spotlight__chrome span { width: 10px; height: 10px; border-radius: 50%; background: #C7CDD9; }
+  .eh-spotlight__media img {
+    display: block; width: 100%; height: auto;
+    border-radius: 0 0 10px 10px; box-shadow: 0 24px 60px rgba(9,21,43,0.14);
+  }
+
+  @media (max-width: 900px) {
+    .eh-spotlight__grid, .eh-spotlight__grid--flip { flex-direction: column; }
+  }
+</style>

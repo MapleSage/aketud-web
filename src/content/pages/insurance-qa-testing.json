@@ -1,0 +1,24 @@
+{
+  "metaTitle": "Testing & Insurance Modernization — AKETUD",
+  "metaDescription": "AI-driven QA and modernization services — functional, non-functional, and automated testing built for insurance-grade reliability.",
+  "eyebrow": "Insurance · Quality Assurance",
+  "title": "Testing & Insurance Modernization",
+  "intro": "Functional, non-functional, and automation testing for insurance systems — built to accelerate time-to-market without loosening quality.",
+  "steps": [
+    { "heading": "Tailored Testing Services", "body": "QA strategies built around the specific system under test, not a generic checklist run against every release." },
+    { "heading": "Modernization Platforms", "body": "Core systems unified with intelligent automation instead of bolted-together point integrations." },
+    { "heading": "Automated Claims Processing", "body": "AI-driven automation applied to claims processing for faster resolution without sacrificing the audit trail." },
+    { "heading": "Cloud Integration", "body": "Scalable, secure cloud operations that a QA process can actually exercise before release, not just in production." },
+    { "heading": "Real-Time Analytics", "body": "Analytics that surface where quality is actually trending, so decisions are data-driven rather than anecdotal." }
+  ],
+  "stats": [
+    { "value": "40%", "label": "Reduction in claims resolution time" },
+    { "value": "30%", "label": "Faster onboarding and setup" },
+    { "value": "7.6x", "label": "Return on modernization investment" }
+  ],
+  "cta": {
+    "eyebrow": "See it running",
+    "line": "A testing process that cannot catch a regression is not a testing process.",
+    "button": { "label": "Book a call", "href": "/contact" }
+  }
+}

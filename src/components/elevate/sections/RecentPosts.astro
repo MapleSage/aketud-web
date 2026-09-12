@@ -1,0 +1,70 @@
+---
+/* RecentPosts — a row of blog cards. Takes already-resolved post data
+   (not a collection query) so this component has no dependency on the
+   blog content shape — the caller (a page) does the query. */
+interface Post {
+  href: string;
+  title: string;
+  tag?: string;
+  cover?: string;
+  author?: string;
+  minutes?: number;
+}
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  viewAllHref?: string;
+  posts: Post[];
+}
+const { eyebrow, heading = 'Insights', viewAllHref, posts } = Astro.props;
+---
+<section class="eh-recentposts">
+  <div class="hs-elevate-content-wrapper">
+    <div class="eh-recentposts__head">
+      <div>
+        {eyebrow && <p class="hs-elevate-tag">{eyebrow}</p>}
+        <h2 class="hs-elevate-h2">{heading}</h2>
+      </div>
+      {viewAllHref && <a class="eh-recentposts__viewall" href={viewAllHref}>View all →</a>}
+    </div>
+    <div class="eh-recentposts__grid">
+      {posts.map((p) => (
+        <a class="eh-recentposts__card" href={p.href}>
+          <div class="eh-recentposts__img">
+            {p.cover && <img src={p.cover} alt="" loading="lazy" />}
+          </div>
+          {p.tag && <span class="hs-elevate-tag eh-recentposts__tag">{p.tag}</span>}
+          <h3 class="hs-elevate-h4">{p.title}</h3>
+          {(p.author || p.minutes) && (
+            <p class="eh-recentposts__meta">{[p.author, p.minutes && `${p.minutes} min`].filter(Boolean).join(' · ')}</p>
+          )}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-recentposts { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-recentposts__head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap; margin: 0 0 40px;
+  }
+  .eh-recentposts__head h2 { margin: 8px 0 0; }
+  .eh-recentposts__viewall { font-weight: 600; color: var(--hsElevate--color--accent--3); text-decoration: none; }
+  .eh-recentposts__viewall:hover { color: var(--hsElevate--color--accent--3--hover); }
+
+  .eh-recentposts__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .eh-recentposts__card { display: block; color: inherit; text-decoration: none; }
+  .eh-recentposts__img {
+    aspect-ratio: 3/2; border-radius: 10px; overflow: hidden; margin-bottom: 16px;
+    background: var(--hsElevate--color--base--2);
+  }
+  .eh-recentposts__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .eh-recentposts__tag { margin-bottom: 10px; }
+  .eh-recentposts__card h3 { margin: 0 0 8px; transition: color .15s; }
+  .eh-recentposts__card:hover h3 { color: var(--hsElevate--color--accent--3); }
+  .eh-recentposts__meta { margin: 0; font-size: 13px; color: var(--hsElevate--body__fontColor, #4a5a72); }
+
+  @media (max-width: 900px) { .eh-recentposts__grid { grid-template-columns: 1fr; } }
+</style>

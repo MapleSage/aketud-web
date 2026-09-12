@@ -1,0 +1,52 @@
+---
+/* IconGrid — icon + short label only, no body copy, arranged in a compact
+   multi-column grid (5-across on desktop). For a "here's everything
+   included" capability list where each item is self-explanatory from its
+   label alone — distinct from FeatureList (icon+heading+body, 2 columns)
+   and Features (card-chrome, 2-4 columns). */
+interface Item { iconSrc: string; label: string }
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  items: Item[];
+  columns?: 4 | 5;
+}
+const { eyebrow, heading, items, columns = 5 } = Astro.props;
+---
+<section class="eh-icongrid">
+  <div class="hs-elevate-content-wrapper">
+    {(eyebrow || heading) && (
+      <div class="eh-icongrid__head">
+        {eyebrow && <p class="hs-elevate-tag">{eyebrow}</p>}
+        {heading && <h2 class="hs-elevate-h2">{heading}</h2>}
+      </div>
+    )}
+    <div class="eh-icongrid__grid" style={`--cols:${columns}`}>
+      {items.map((it) => (
+        <div class="eh-icongrid__item">
+          <img src={it.iconSrc} alt="" loading="lazy" />
+          <span>{it.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-icongrid { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-icongrid__head { max-width: 720px; margin: 0 auto 48px; text-align: center; }
+  .eh-icongrid__head h2 { margin: 8px 0 0; }
+  .eh-icongrid__grid {
+    display: grid; grid-template-columns: repeat(var(--cols, 5), 1fr);
+    gap: 40px 24px; text-align: center;
+  }
+  .eh-icongrid__item { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .eh-icongrid__item img { width: 44px; height: 44px; object-fit: contain; }
+  .eh-icongrid__item span {
+    font-size: 14.5px; font-weight: 600; line-height: 1.35;
+    color: var(--hsElevate--color--base--3, #09152B);
+  }
+
+  @media (max-width: 900px) { .eh-icongrid__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .eh-icongrid__grid { grid-template-columns: repeat(2, 1fr); } }
+</style>

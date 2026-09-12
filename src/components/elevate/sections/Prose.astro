@@ -1,0 +1,29 @@
+---
+/* Prose — long-form policy/legal content: a series of {heading?, body[]}
+   blocks in a single readable column. No grid, no cards — just text. */
+interface Block { heading?: string; body: string[] }
+interface Props { blocks: Block[] }
+const { blocks } = Astro.props;
+---
+<section class="eh-prose">
+  <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--md">
+    {blocks.map((b) => (
+      <div class="eh-prose__block">
+        {b.heading && <h2 class="hs-elevate-h3">{b.heading}</h2>}
+        {b.body.map((p) => <p>{p}</p>)}
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .eh-prose { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-prose__block { margin-bottom: 44px; }
+  .eh-prose__block:last-child { margin-bottom: 0; }
+  .eh-prose__block h2 { margin: 0 0 18px; }
+  .eh-prose__block p {
+    font-size: 16px; line-height: 1.75; margin: 0 0 16px;
+    color: var(--hsElevate--body__fontColor, #2a3a52);
+  }
+  .eh-prose__block p:last-child { margin-bottom: 0; }
+</style>

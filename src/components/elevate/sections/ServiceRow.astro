@@ -1,0 +1,83 @@
+---
+/* ServiceRow — "image + text" module: a photo/illustration on one side,
+   eyebrow-free heading + subheading + body + bullet checklist + an outcome
+   line + a CTA button on the other. Ports HubSpot Elevate's own
+   "image-and-text" module 1:1 (heading levels, plain <ul> bullets, bold
+   lead clause on the stat line) rather than inventing a new composition —
+   see the commit that added this note for why that distinction matters.
+   `mediaSide` alternates left/right per row, matching the live site. */
+import { emphasize } from '../../../lib/site';
+
+interface Cta { label: string; href: string }
+interface Media { src: string; alt?: string }
+interface Props {
+  heading: string;
+  sub?: string;
+  body?: string;
+  bullets?: string[];
+  /** Rendered as one paragraph; the clause before the first ". " is bold,
+      matching the live site's <p><strong>...</strong>. rest</p> markup. */
+  stat?: string;
+  cta?: Cta;
+  media?: Media;
+  mediaSide?: 'left' | 'right';
+  tone?: 'base' | 'tint' | 'dark';
+}
+const { heading, sub, body, bullets = [], stat, cta, media, mediaSide = 'left', tone = 'base' } = Astro.props;
+
+let statLead = stat, statRest = '';
+if (stat) {
+  const i = stat.indexOf('. ');
+  if (i > -1) { statLead = stat.slice(0, i + 1); statRest = stat.slice(i + 1); }
+}
+---
+<section class:list={['eh-servicerow', `eh-servicerow--${tone}`]}>
+  <div class:list={['hs-elevate-content-wrapper eh-servicerow__grid', { 'eh-servicerow__grid--flip': mediaSide === 'right' }]}>
+    {media && (
+      <div class="eh-servicerow__media">
+        <img src={media.src} alt={media.alt ?? ''} loading="lazy" />
+      </div>
+    )}
+    <div class="eh-servicerow__copy">
+      <h2 class="hs-elevate-h2" set:html={emphasize(heading)}></h2>
+      {sub && <h4 class="eh-servicerow__sub">{sub}</h4>}
+      {body && <p class="eh-servicerow__body">{body}</p>}
+      {bullets.length > 0 && (
+        <ul class="eh-servicerow__bullets">
+          {bullets.map((b) => <li>{b}</li>)}
+        </ul>
+      )}
+      {stat && <p class="eh-servicerow__stat"><strong>{statLead}</strong>{statRest}</p>}
+      {cta && <a class="hs-elevate-button hs-elevate-button--primary" href={cta.href}>{cta.label}</a>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-servicerow { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-servicerow--tint { background: var(--hsElevate--color--base--2); }
+  .eh-servicerow--dark { background: var(--hsElevate--color--base--3); color: var(--hsElevate--color--base--1); }
+  .eh-servicerow--dark .eh-servicerow__body,
+  .eh-servicerow--dark .eh-servicerow__bullets li { color: rgba(255,255,255,0.75); }
+
+  .eh-servicerow__grid { display: flex; gap: 56px; align-items: center; flex-wrap: wrap; }
+  .eh-servicerow__grid--flip { flex-direction: row-reverse; }
+  .eh-servicerow__media { flex: 1 1 440px; min-width: 0; }
+  .eh-servicerow__media img { display: block; width: 100%; height: auto; border-radius: 12px; }
+  .eh-servicerow__copy { flex: 1 1 440px; }
+  .eh-servicerow__copy h2 { margin: 0 0 14px; }
+  .eh-servicerow__sub { margin: 0 0 14px; font-size: 19px; }
+  .eh-servicerow__body {
+    font-size: 16px; line-height: 1.7; margin: 0 0 16px;
+    color: var(--hsElevate--body__fontColor, #4a5a72);
+  }
+  .eh-servicerow__bullets {
+    margin: 0 0 16px; padding-left: 20px; display: grid; gap: 8px;
+    font-size: 15.5px; line-height: 1.5;
+  }
+  .eh-servicerow__stat { margin: 0 0 24px; font-size: 16px; }
+
+  @media (max-width: 900px) {
+    .eh-servicerow__grid, .eh-servicerow__grid--flip { flex-direction: column; }
+  }
+</style>

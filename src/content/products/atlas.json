@@ -1,0 +1,40 @@
+{
+  "order": 5,
+  "slug": "atlas",
+  "no": "05",
+  "name": "Atlas",
+  "eyebrow": "05 — Exposure Intelligence",
+  "domain": "atlas.aketud.com",
+  "sector": "Insurance · Legal · Institutional",
+  "dark": true,
+  "lead": "Corporate ownership and regulatory relationships mapped with source-graded confidence — so a confirmed fact never reads like an assumption.",
+  "architecture": [
+    "Atlas builds a graph of corporate entities, ownership, control and regulatory relationships. The point is not the graph — it is that every edge carries a confidence grade and the source that supports it.",
+    "A confirmed filing and an inferred link render differently and are queryable separately. An analyst can ask for \"only what is documented\" and get an answer they can put in front of a regulator.",
+    "The extraction path is the same source-grounded pipeline as UW and FNOL, pointed at filings, registries and disclosures instead of submissions."
+  ],
+  "stack": [
+    "Rust",
+    "Python",
+    "Graph store",
+    "Azure OpenAI",
+    "Azure Content Understanding"
+  ],
+  "screens": [
+    {
+      "src": "/uploads/atlas-1.webP",
+      "alt": "Atlas — ownership graph with confidence grades",
+      "caption": "Ownership and control, every edge source-graded"
+    },
+    {
+      "src": "/uploads/Atlas-2.webP",
+      "alt": "Atlas — entity detail with supporting filings",
+      "caption": "Confirmed filings and inferred links, queryable separately"
+    },
+    {
+      "src": "/uploads/Atlas-3.webP",
+      "alt": "Atlas — regulatory relationship view",
+      "caption": "Regulatory relationships with the disclosure behind each one"
+    }
+  ]
+}

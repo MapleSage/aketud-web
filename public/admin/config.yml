@@ -1,0 +1,275 @@
+backend:
+  name: github
+  repo: MapleSage/maplesage-web
+  branch: main
+  # Hosted auth: GitHub OAuth handled by this site's own Pages Functions
+  # (functions/oauth/*). Needs GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET env vars
+  # on the Pages project + a GitHub OAuth App with callback
+  # https://maplesage-web.pages.dev/oauth/callback
+  base_url: https://maplesage-web.pages.dev
+  auth_endpoint: oauth/auth
+
+# Local editing: `npx @sveltia/cms-proxy-server` + this flag, edit at
+# http://localhost:4321/admin/ with no GitHub auth.
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+site_url: https://www.maplesage.com
+display_url: https://www.maplesage.com
+logo_url: /favicon-64.png
+
+collections:
+  # ------------------------------------------------------------- Insights
+  - name: blog
+    label: Insights
+    label_singular: Post
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    preview_path: "insights/{{slug}}"
+    sortable_fields: [pubDate, title, tag]
+    view_filters:
+      - { label: Drafts, field: draft, pattern: true }
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Description, widget: text }
+      - name: tag
+        label: Tag
+        widget: select
+        options: [Underwriting, Claims, "Policy & Ledger", "B2B Retail", Trade Finance, Engineering]
+      - { name: author, label: Author, widget: string, default: "Parvind Dutta" }
+      - { name: pubDate, label: Published, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { name: updatedDate, label: Updated, widget: datetime, required: false, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { name: cover, label: Cover image, widget: image, required: false }
+      - { name: canonical, label: Canonical URL, widget: string, required: false }
+      - { name: lead, label: Pin to index hero, widget: boolean, default: false }
+      - { name: draft, label: Draft, widget: boolean, default: false }
+      - { name: body, label: Body, widget: markdown }
+
+  # --------------------------------------------------------- Product pages
+  - name: products
+    label: Product subdomains
+    label_singular: Product
+    folder: src/content/products
+    create: false
+    extension: json
+    identifier_field: name
+    sortable_fields: [order]
+    fields:
+      - { name: order, label: Order, widget: number, value_type: int }
+      - { name: slug, label: Slug (URL + subdomain), widget: string }
+      - { name: no, label: Number label, widget: string, hint: "e.g. 01" }
+      - { name: name, label: Name, widget: string }
+      - { name: eyebrow, label: Eyebrow, widget: string, hint: "e.g. 01 — Operations Command Center" }
+      - { name: domain, label: Domain, widget: string }
+      - { name: sector, label: Sector line, widget: string }
+      - { name: dark, label: Dark hero, widget: boolean, default: false }
+      - { name: lead, label: Lead paragraph, widget: text }
+      - { name: architecture, label: "How it's built (paragraphs)", widget: list, field: { name: para, label: Paragraph, widget: text } }
+      - { name: stack, label: Stack chips, widget: list, field: { name: item, label: Item, widget: string } }
+      - name: screens
+        label: Screens
+        widget: list
+        fields:
+          - { name: src, label: Image, widget: image, required: false, hint: "leave empty to show the placeholder slot" }
+          - { name: alt, label: Alt text, widget: string }
+          - { name: caption, label: Caption, widget: string }
+
+  # --------------------------------------------------------- Case studies
+  - name: cases
+    label: Case studies
+    label_singular: Case study
+    folder: src/content/cases
+    create: true
+    extension: json
+    identifier_field: name
+    sortable_fields: [order]
+    fields:
+      - { name: order, label: Order, widget: number, value_type: int }
+      - { name: name, label: Name, widget: string }
+      - { name: sector, label: Sector, widget: string }
+      - { name: what, label: What it was (one line), widget: string }
+      - { name: proof, label: Proof line, widget: string }
+      - { name: body, label: Body paragraphs, widget: list, field: { name: para, label: Paragraph, widget: text } }
+
+  # ------------------------------------------------------- Marketing pages
+  - name: pages
+    label: Pages
+    editor: { preview: false }
+    files:
+      - name: home
+        label: Homepage
+        file: src/content/pages/home.json
+        fields:
+          - { name: metaTitle, label: SEO title, widget: string }
+          - { name: metaDescription, label: SEO description, widget: text }
+          - name: blocks
+            label: Sections
+            label_singular: Section
+            hint: "The homepage, top to bottom. Drag the ⠿ handle on any section to reorder it; use + to add or the trash icon to remove one — no code needed."
+            widget: list
+            typeKey: type
+            types:
+              - name: hero
+                label: "Hero (top banner)"
+                fields:
+                  - { name: title, label: Heading, widget: text, hint: "line breaks = \\n, *word* = italic" }
+                  - { name: sub, label: Sub-line, widget: string, required: false }
+                  - { name: variant, label: Layout, widget: select, options: [full, split], default: full }
+                  - { name: dark, label: Dark background (split layout only), widget: boolean, default: false, required: false }
+                  - { name: ctaPrimary, label: Button, widget: object, required: false, fields: [{ name: label, widget: string }, { name: href, widget: string }] }
+                  - name: media
+                    label: Background image/video
+                    widget: object
+                    required: false
+                    fields:
+                      - { name: type, widget: select, options: [image, video], default: image }
+                      - { name: src, label: Image / video file, widget: file }
+                      - { name: webm, label: ".webm (video only)", widget: file, required: false }
+                      - { name: poster, label: "Poster frame (video only)", widget: image, required: false }
+                      - { name: alt, label: Alt text, widget: string, required: false }
+              - name: serviceRow
+                label: "Service row (image + text, alternating sides)"
+                fields:
+                  - { name: heading, label: Heading, widget: string }
+                  - { name: sub, label: Sub-heading, widget: string, required: false }
+                  - { name: body, label: Body, widget: text, required: false }
+                  - { name: bullets, label: Bullet list, widget: list, required: false, field: { name: item, widget: string } }
+                  - { name: stat, label: "Outcome line (first sentence renders bold)", widget: string, required: false }
+                  - { name: linkText, label: Button label, widget: string, required: false }
+                  - { name: href, label: Button link, widget: string, required: false }
+                  - { name: mediaSide, label: Image side, widget: select, options: [left, right], default: left }
+                  - name: media
+                    label: Image
+                    widget: object
+                    required: false
+                    fields:
+                      - { name: src, widget: image }
+                      - { name: alt, label: Alt text, widget: string, required: false }
+              - name: featureList
+                label: "Icon list (e.g. Why Us)"
+                fields:
+                  - { name: eyebrow, label: Heading, widget: string, required: false }
+                  - { name: sub, label: Sub-heading, widget: string, required: false }
+                  - name: items
+                    label: Items
+                    widget: list
+                    fields:
+                      - { name: heading, widget: string }
+                      - { name: body, widget: text }
+                      - name: icon
+                        widget: select
+                        required: false
+                        options: [certificate, brain, globe, chart, wand, grid, robot, share]
+              - name: testimonials
+                label: Testimonial carousel
+                fields:
+                  - { name: eyebrow, widget: string, required: false }
+                  - { name: heading, widget: string, required: false }
+                  - name: items
+                    label: Testimonials
+                    widget: list
+                    fields:
+                      - { name: quote, widget: text }
+                      - { name: name, widget: string }
+                      - { name: role, widget: string, required: false }
+                      - { name: avatar, label: "Person photo (small, round)", widget: image, required: false }
+                      - { name: image, label: "Feature photo (large, square)", widget: image, required: false }
+                      - { name: linkText, label: Link label, widget: string, required: false, default: "Read case study" }
+                      - { name: href, label: Link URL, widget: string, required: false }
+              - name: recentPosts
+                label: "Blog strip (latest posts)"
+                fields:
+                  - { name: eyebrow, widget: string, required: false, default: "How we think" }
+                  - { name: heading, widget: string, required: false, default: "Insights, Info, and Ideas" }
+                  - { name: viewAllHref, label: "\"View all\" link", widget: string, required: false, default: "/insights" }
+                  - { name: count, label: "How many posts to show", widget: number, value_type: int, required: false, default: 3 }
+              - name: ctaBand
+                label: "CTA band (closing call-to-action)"
+                fields:
+                  - { name: eyebrow, widget: string, required: false }
+                  - { name: heading, widget: string }
+                  - { name: body, widget: text, required: false }
+                  - { name: tone, widget: select, options: [light, dark, accent], default: light }
+                  - { name: ctaPrimary, label: Button, widget: object, fields: [{ name: label, widget: string }, { name: href, widget: string }] }
+                  - { name: ctaSecondary, label: "Second button (optional)", widget: object, required: false, fields: [{ name: label, widget: string }, { name: href, widget: string }] }
+
+      - name: insurance
+        label: Insurance page
+        file: src/content/pages/insurance.json
+        fields: &pillarFields
+          - { name: metaTitle, label: SEO title, widget: string }
+          - { name: metaDescription, label: SEO description, widget: text }
+          - { name: eyebrow, label: Eyebrow, widget: string, required: false }
+          - { name: title, label: Title, widget: text, required: false, hint: "line breaks = \\n" }
+          - { name: intro, label: Intro, widget: text, required: false }
+          - name: sections
+            label: Section headers
+            widget: list
+            required: false
+            fields:
+              - { name: eyebrow, widget: string, required: false }
+              - { name: heading, widget: string, required: false }
+              - { name: body, widget: list, required: false, field: { name: para, widget: text } }
+          - name: steps
+            label: Steps / blocks
+            widget: list
+            required: false
+            fields:
+              - { name: heading, widget: string }
+              - { name: body, widget: text }
+          - name: cta
+            label: Closing CTA
+            widget: object
+            required: false
+            fields:
+              - { name: eyebrow, widget: string }
+              - { name: line, widget: text }
+              - { name: button, widget: object, fields: [{ name: label, widget: string }, { name: href, widget: string }] }
+
+      - name: retail
+        label: Retail page
+        file: src/content/pages/retail.json
+        fields: *pillarFields
+
+      - name: work
+        label: Work page
+        file: src/content/pages/work.json
+        fields: *pillarFields
+
+      - name: about
+        label: About page
+        file: src/content/pages/about.json
+        fields: *pillarFields
+
+  # -------------------------------------------------------------- Settings
+  - name: settings
+    label: Site settings
+    editor: { preview: false }
+    files:
+      - name: site
+        label: Nav, footer & contact
+        file: src/content/settings/site.json
+        fields:
+          - { name: org, label: Org name, widget: string }
+          - { name: contactEmail, label: Contact email, widget: string }
+          - { name: locations, label: Locations line, widget: string }
+          - { name: postsPerPage, label: "Blog: posts per page", widget: number, value_type: int, min: 1, max: 50, default: 12, hint: "How many posts show on each page of /insights and each topic archive, same as HubSpot's blog listing setting." }
+          - name: nav
+            label: Nav links
+            widget: list
+            fields: [{ name: label, widget: string }, { name: href, widget: string }]
+          - { name: navCta, label: Nav button, widget: object, fields: [{ name: label, widget: string }, { name: href, widget: string }] }
+          - name: footerLinks
+            label: Footer links
+            widget: list
+            fields: [{ name: label, widget: string }, { name: href, widget: string }]
+          - name: social
+            label: Social links
+            widget: list
+            required: false
+            fields: [{ name: label, widget: string }, { name: href, widget: string }]

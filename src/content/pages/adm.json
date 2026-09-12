@@ -1,0 +1,24 @@
+{
+  "metaTitle": "Application Development & Maintenance — AKETUD",
+  "metaDescription": "Custom application development, proactive maintenance, and legacy-to-cloud migration.",
+  "eyebrow": "Insurance · ADM",
+  "title": "Application Development & Maintenance",
+  "intro": "Custom applications tailored to your business, proactive maintenance with transparent communication, and legacy modernization through to cloud migration.",
+  "steps": [
+    { "heading": "Development & Enhancement", "body": "Tailored solutions built around your actual workflow rather than a generic template." },
+    { "heading": "Migration Services", "body": "A seamless transition to cloud environments, planned around continuity of the systems already in production." },
+    { "heading": "Maintenance & Support", "body": "Proactive monitoring for optimal performance — issues found before they're reported, not after." },
+    { "heading": "Integration Services", "body": "Bridging legacy systems with modern platforms instead of asking you to replace what already works." },
+    { "heading": "Consulting Expertise", "body": "Strategic insight for sustainable innovation, grounded in what your systems can actually support today." }
+  ],
+  "stats": [
+    { "value": "95%", "label": "Customer satisfaction" },
+    { "value": "150+", "label": "Successful projects" },
+    { "value": "24/7", "label": "Reliable support" }
+  ],
+  "cta": {
+    "eyebrow": "See it running",
+    "line": "Tell us what's running today, and what it needs to do tomorrow.",
+    "button": { "label": "Book a call", "href": "/contact" }
+  }
+}

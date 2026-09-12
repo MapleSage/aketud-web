@@ -1,0 +1,41 @@
+{
+  "order": 1,
+  "slug": "platform",
+  "no": "01",
+  "name": "Platform",
+  "eyebrow": "01 — Operations Command Center",
+  "domain": "platform.aketud.com",
+  "sector": "Insurance",
+  "dark": true,
+  "lead": "One workspace across quotes, policies, claims, underwriting, CRM, FNOL and reporting — built around a shared policy record rather than stitched from separate systems.",
+  "architecture": [
+    "The platform is not an integration of separate tools. Every screen — a quote, a bound policy, a claim, an underwriting file — reads and writes the same policy record, so the numbers reconcile because they were never separate to begin with.",
+    "Underneath sits a bi-temporal policy ledger and double-entry premium accounting. Corrections are new rows, not overwrites. The book balances by construction rather than by an overnight reconciliation job.",
+    "The service layer is Rust. The type system does real work in a system that has to reconcile — a written, earned, ceded or collected figure that has no matching contra entry does not compile."
+  ],
+  "stack": [
+    "Rust",
+    "React",
+    "TypeScript",
+    "PostgreSQL",
+    "Azure AKS",
+    "Swift"
+  ],
+  "screens": [
+    {
+      "src": "/uploads/mapelsage-platform.webP",
+      "alt": "Platform — operations dashboard",
+      "caption": "Command center — quotes, policies and claims on one policy record"
+    },
+    {
+      "src": "/uploads/maplesage-platform-1.webP",
+      "alt": "Platform — policy detail with ledger history",
+      "caption": "Bi-temporal policy history: what is true, and what was believed true, and when"
+    },
+    {
+      "src": "/uploads/maplesage-platform-2.webP",
+      "alt": "Platform — premium accounting view",
+      "caption": "Double-entry premium accounting — written, earned, ceded, collected"
+    }
+  ]
+}

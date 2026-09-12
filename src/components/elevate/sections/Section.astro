@@ -1,0 +1,94 @@
+---
+/* Section — the dispatcher a page's `blocks: [{ type, ... }]` array is
+   rendered through: one entry per row in the array, `type` picks which
+   component below renders it. This is what makes a page's content
+   reorderable/addable/removable as data (a CMS `list` field with `types`)
+   instead of hardcoded in the page's .astro file — see the CMS `sections`
+   field in public/admin/config.yml. Any page's content file can use
+   `blocks: []` this way, not just home.json — see retail-wholesale.json
+   for a second page built entirely from blocks. Add a new block type in
+   three places: a case here, a `types:` entry in config.yml, and a variant
+   in the `homeBlock` union in content.config.ts. */
+import Hero from './Hero.astro';
+import ServiceRow from './ServiceRow.astro';
+import FeatureList from './FeatureList.astro';
+import IconGrid from './IconGrid.astro';
+import LogoWall from './LogoWall.astro';
+import Testimonials from './Testimonials.astro';
+import RecentPosts from './RecentPosts.astro';
+import CtaBand from './CtaBand.astro';
+import { allPosts } from '../../../lib/posts';
+
+interface Props { block: Record<string, any> };
+const { block } = Astro.props;
+
+let posts: any[] = [];
+if (block.type === 'recentPosts') {
+  posts = (await allPosts()).slice(0, block.count ?? 3).map((p: any) => ({
+    href: `/insights/${p.id}`,
+    title: p.data.title,
+    tag: p.data.tag,
+    cover: p.data.cover,
+    author: p.data.author,
+    minutes: p.minutes,
+  }));
+}
+---
+{block.type === 'hero' && (
+  <Hero
+    variant={block.variant ?? 'full'}
+    dark={block.dark}
+    clearHeader
+    eyebrow={block.eyebrow}
+    heading={block.title}
+    sub={block.sub}
+    ctaPrimary={block.ctaPrimary}
+    ctaSecondary={block.ctaSecondary}
+    media={block.media}
+  />
+)}
+
+{block.type === 'serviceRow' && (
+  <ServiceRow
+    heading={block.heading}
+    sub={block.sub}
+    body={block.body}
+    bullets={block.bullets}
+    stat={block.stat}
+    cta={block.linkText && block.href ? { label: block.linkText, href: block.href } : undefined}
+    media={block.media}
+    mediaSide={block.mediaSide}
+    tone={block.tone}
+  />
+)}
+
+{block.type === 'featureList' && (
+  <FeatureList id={block.id} eyebrow={block.eyebrow} sub={block.sub} items={block.items ?? []} />
+)}
+
+{block.type === 'iconGrid' && (
+  <IconGrid eyebrow={block.eyebrow} heading={block.heading} items={block.items ?? []} columns={block.columns} />
+)}
+
+{block.type === 'logoWall' && (
+  <LogoWall eyebrow={block.eyebrow} logos={block.logos ?? []} />
+)}
+
+{block.type === 'testimonials' && (block.items?.length > 0) && (
+  <Testimonials eyebrow={block.eyebrow} heading={block.heading} items={block.items} />
+)}
+
+{block.type === 'recentPosts' && posts.length > 0 && (
+  <RecentPosts eyebrow={block.eyebrow} heading={block.heading} viewAllHref={block.viewAllHref} posts={posts} />
+)}
+
+{block.type === 'ctaBand' && (
+  <CtaBand
+    tone={block.tone ?? 'light'}
+    eyebrow={block.eyebrow}
+    heading={block.heading}
+    body={block.body}
+    ctaPrimary={block.ctaPrimary}
+    ctaSecondary={block.ctaSecondary}
+  />
+)}

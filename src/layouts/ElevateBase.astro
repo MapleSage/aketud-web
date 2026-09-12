@@ -1,0 +1,57 @@
+---
+/* Base layout for the Elevate-themed marketing pages (everything except the
+   design-frozen /insights blog, which keeps Base.astro + tokens.css). */
+import '../styles/elevate.css';
+import '../styles/brands/aketud.css';   // swap this one import to reskin the theme
+import Header from '../components/elevate/Header.astro';
+import Footer from '../components/elevate/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  navActive?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  /** Page opens on a dark hero — header starts transparent/white, solidifies on scroll. */
+  transparentHeader?: boolean;
+}
+const {
+  title, description,
+  canonical = new URL(Astro.url.pathname, Astro.site).href,
+  navActive = '',
+  ogImage,
+  noindex = false,
+  transparentHeader = false,
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+</head>
+<body class="elevate">
+  <Header active={navActive} transparent={transparentHeader} />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>

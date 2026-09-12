@@ -1,0 +1,40 @@
+{
+  "order": 4,
+  "slug": "fnol",
+  "no": "04",
+  "name": "FNOL",
+  "eyebrow": "04 — Claims Intake",
+  "domain": "fnol.aketud.com",
+  "sector": "Insurance",
+  "dark": false,
+  "lead": "Photos, scans and PDFs converted into structured, source-grounded claim data, validated and handed off to CRM automatically.",
+  "architecture": [
+    "A first notice of loss arrives as whatever the claimant had to hand — a photo of a form, a scanned PDF, a phone note. FNOL turns that into a structured claim record with each field grounded back to the pixels it was read from.",
+    "Validation runs before hand-off: required fields, policy-in-force checks, obvious inconsistencies. A claim that fails validation is queued for a human, not silently accepted.",
+    "On success the record is pushed to CRM and the claims workflow with the evidence attached. The adjuster opens a claim that already has its documents indexed."
+  ],
+  "stack": [
+    "Python",
+    "Rust",
+    "Azure Content Understanding",
+    "Azure OpenAI",
+    "HubSpot API"
+  ],
+  "screens": [
+    {
+      "src": "/uploads/Maplesage-FNOL.png",
+      "alt": "FNOL — document upload and extraction",
+      "caption": "Intake — photos, scans and PDFs into a structured claim"
+    },
+    {
+      "src": "/uploads/fnol-1.jpg",
+      "alt": "FNOL — extracted fields grounded to source",
+      "caption": "Each field grounded back to the source document"
+    },
+    {
+      "src": "/uploads/fnol-3.jpg",
+      "alt": "FNOL — validation and CRM hand-off",
+      "caption": "Validated, then pushed to CRM with evidence attached"
+    }
+  ]
+}

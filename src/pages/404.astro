@@ -1,0 +1,33 @@
+---
+/* 404 — Not Found. Astro generates this as dist/404.html; Cloudflare Pages
+   serves it (with a real 404 status) for any unmatched path once it exists
+   in the deploy. Without it, Pages silently falls back to serving the
+   *homepage* with a 200 status for every broken URL — a real bug hit and
+   fixed in maplesage-web (this repo's parent), where it made every real
+   page resolve to the homepage instead when requested on the wrong host.
+   Keep this file even though it looks like dead weight. */
+import ElevateBase from '../layouts/ElevateBase.astro';
+---
+<ElevateBase title="Page not found — AKETUD" description="This page doesn't exist." navActive="">
+  <section class="eh-404">
+    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--md">
+      <p class="hs-elevate-tag">404</p>
+      <h1 class="hs-elevate-display-2 eh-404__h">We can't find that page.</h1>
+      <p class="eh-404__p">The link may be old, or the page may have moved. Try the homepage, or one of the links below.</p>
+      <div class="eh-404__links">
+        <a class="hs-elevate-button hs-elevate-button--primary" href="/">Go to the homepage</a>
+        <a class="hs-elevate-button hs-elevate-button--secondary" href="/contact">Contact us</a>
+      </div>
+    </div>
+  </section>
+</ElevateBase>
+
+<style>
+  .eh-404 { padding-block: var(--hsElevate--section--large__verticalPadding); text-align: center; }
+  .eh-404__h { margin: 10px 0 20px; }
+  .eh-404__p {
+    font-size: 17px; line-height: 1.7; max-width: 52ch; margin: 0 auto 32px;
+    color: var(--hsElevate--body__fontColor, #4a5a72);
+  }
+  .eh-404__links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+</style>

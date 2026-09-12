@@ -1,0 +1,125 @@
+---
+/* Testimonials — single-slide carousel: square photo one side, quote +
+   author + "read the case study" link the other, prev/next arrows and dot
+   nav below. Ports the live site's testimonial slider layout (one card
+   visible at a time) rather than the card-grid this component used to be. */
+interface Testimonial {
+  quote: string;
+  name: string;
+  role?: string;
+  avatar?: string;
+  image?: string;
+  linkText?: string;
+  href?: string;
+}
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  items: Testimonial[];
+}
+const { eyebrow, heading, items } = Astro.props;
+---
+<section class="eh-testimonials">
+  <div class="hs-elevate-content-wrapper">
+    {(eyebrow || heading) && (
+      <div class="eh-testimonials__head">
+        {eyebrow && <p class="hs-elevate-tag">{eyebrow}</p>}
+        {heading && <h2 class="hs-elevate-h2">{heading}</h2>}
+      </div>
+    )}
+    <div class="eh-testimonials__slider" data-testimonials>
+      <button type="button" class="eh-testimonials__arrow eh-testimonials__arrow--prev" aria-label="Previous testimonial" data-prev>‹</button>
+      <div class="eh-testimonials__track">
+        {items.map((t, i) => (
+          <figure class="eh-testimonials__slide" hidden={i !== 0} data-slide>
+            {t.image && <img class="eh-testimonials__image" src={t.image} alt="" loading="lazy" />}
+            <figcaption>
+              <blockquote>&ldquo;{t.quote}&rdquo;</blockquote>
+              <div class="eh-testimonials__person">
+                {t.avatar && <img class="eh-testimonials__avatar" src={t.avatar} alt="" loading="lazy" />}
+                <span>
+                  <strong>{t.name}</strong>
+                  {t.role && <span class="eh-testimonials__role">{t.role}</span>}
+                </span>
+              </div>
+              {t.linkText && t.href && <a class="eh-testimonials__link" href={t.href}>{t.linkText} <span aria-hidden="true">›</span></a>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <button type="button" class="eh-testimonials__arrow eh-testimonials__arrow--next" aria-label="Next testimonial" data-next>›</button>
+    </div>
+    {items.length > 1 && (
+      <div class="eh-testimonials__dots" data-dots>
+        {items.map((_, i) => (
+          <button type="button" class="eh-testimonials__dot" aria-label={`Show testimonial ${i + 1}`} data-dot={i} aria-current={i === 0 ? 'true' : undefined}></button>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .eh-testimonials { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-testimonials__head { max-width: 640px; margin: 0 0 48px; }
+  .eh-testimonials__head h2 { margin: 8px 0 0; }
+
+  .eh-testimonials__slider { display: flex; align-items: center; gap: 16px; }
+  .eh-testimonials__track { flex: 1 1 auto; min-width: 0; }
+  .eh-testimonials__slide { margin: 0; display: flex; gap: 56px; align-items: center; flex-wrap: wrap; }
+  .eh-testimonials__slide[hidden] { display: none; }
+  .eh-testimonials__image {
+    flex: 1 1 340px; max-width: 420px; aspect-ratio: 1 / 1; object-fit: cover;
+    border-radius: 12px; display: block;
+  }
+  .eh-testimonials__slide figcaption { flex: 1 1 380px; min-width: 0; }
+  .eh-testimonials__slide blockquote {
+    /* Plain text, not the theme's default boxed/left-bordered blockquote —
+       the real testimonial slider has no quote card, just large text. */
+    margin: 0 0 28px; padding: 0; border: 0; background: none;
+    font-size: 28px; line-height: 1.4; font-weight: 500;
+    font-family: inherit; color: inherit;
+  }
+  .eh-testimonials__person { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; }
+  .eh-testimonials__avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+  .eh-testimonials__person strong { display: block; font-size: 16px; }
+  .eh-testimonials__role { font-size: 14px; opacity: .65; }
+  .eh-testimonials__link { font-weight: 600; color: var(--hsElevate--color--accent--3); }
+  .eh-testimonials__link:hover { color: var(--hsElevate--color--accent--3--hover, var(--hsElevate--color--accent--3)); }
+
+  .eh-testimonials__arrow {
+    flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid rgba(9,21,43,0.15); background: #fff; color: var(--hsElevate--color--accent--3);
+    font-size: 22px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .eh-testimonials__arrow:hover { background: var(--hsElevate--color--base--2); }
+
+  .eh-testimonials__dots { display: flex; justify-content: center; gap: 8px; margin-top: 32px; }
+  .eh-testimonials__dot {
+    width: 8px; height: 8px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+    background: var(--hsElevate--color--accent--2);
+  }
+  .eh-testimonials__dot[aria-current="true"] { background: var(--hsElevate--color--accent--3); }
+
+  @media (max-width: 700px) {
+    .eh-testimonials__slide { flex-direction: column; }
+    .eh-testimonials__arrow { display: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-testimonials]').forEach((root) => {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-slide]'));
+    const dotsWrap = root.parentElement?.querySelector('[data-dots]');
+    const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll<HTMLElement>('[data-dot]')) : [];
+    let current = 0;
+    function show(i: number) {
+      current = (i + slides.length) % slides.length;
+      slides.forEach((s, idx) => { s.hidden = idx !== current; });
+      dots.forEach((d, idx) => { if (idx === current) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+    }
+    root.querySelector('[data-prev]')?.addEventListener('click', () => show(current - 1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => show(current + 1));
+    dots.forEach((d, idx) => d.addEventListener('click', () => show(idx)));
+  });
+</script>

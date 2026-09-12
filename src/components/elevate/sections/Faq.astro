@@ -1,0 +1,47 @@
+---
+/* FAQ accordion — zero-JS via native <details>/<summary>. */
+interface Item { q: string; a: string }
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  items: Item[];
+}
+const { eyebrow, heading, items } = Astro.props;
+---
+<section class="eh-faq">
+  <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--md">
+    {(eyebrow || heading) && (
+      <div class="eh-faq__head">
+        {eyebrow && <p class="hs-elevate-tag">{eyebrow}</p>}
+        {heading && <h2 class="hs-elevate-h2">{heading}</h2>}
+      </div>
+    )}
+    <div class="eh-faq__list">
+      {items.map((item) => (
+        <details class="eh-faq__item">
+          <summary>
+            <span>{item.q}</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5"/></svg>
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-faq { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-faq__head { margin: 0 0 40px; }
+  .eh-faq__head h2 { margin: 8px 0 0; }
+  .eh-faq__list { border-top: 1px solid rgba(9,21,43,0.1); }
+  .eh-faq__item { border-bottom: 1px solid rgba(9,21,43,0.1); padding: 22px 0; }
+  .eh-faq__item summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    cursor: pointer; list-style: none; font-weight: 600; font-size: 17px;
+  }
+  .eh-faq__item summary::-webkit-details-marker { display: none; }
+  .eh-faq__item summary svg { flex-shrink: 0; transition: transform .2s; color: var(--hsElevate--color--accent--3); }
+  .eh-faq__item[open] summary svg { transform: rotate(45deg); }
+  .eh-faq__item p { margin: 16px 0 0; color: var(--hsElevate--body__fontColor, #4a5a72); line-height: 1.65; }
+</style>

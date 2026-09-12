@@ -1,0 +1,45 @@
+---
+/* Product screenshot in a browser-chrome frame — matches artboard 01.
+   Renders the image when present, otherwise the labelled slot from the design. */
+interface Screen { src?: string; alt: string; caption: string }
+interface Props { screen: Screen }
+const { screen } = Astro.props;
+---
+<figure class="shot">
+  <div class="shot__frame">
+    <div class="shot__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+    {screen.src
+      ? <img src={screen.src} alt={screen.alt} loading="lazy" width="1280" height="800" />
+      : <div class="shot__empty eyebrow">Product screen</div>}
+  </div>
+  <figcaption class="eyebrow">{screen.caption}</figcaption>
+</figure>
+
+<style>
+  .shot { margin: 0; }
+  .shot__frame {
+    border: 1px solid rgba(245, 242, 237, 0.14);
+    background: linear-gradient(150deg, #1A1512 0%, #0E1416 100%);
+    overflow: hidden;
+  }
+  .section--paper .shot__frame, .section--deep .shot__frame {
+    border-color: var(--rule-tile);
+    background: linear-gradient(150deg, #1A1512 0%, #0E1416 100%);
+  }
+  .shot__bar {
+    height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 14px;
+    border-bottom: 1px solid rgba(245, 242, 237, 0.12);
+  }
+  .shot__bar span { width: 8px; height: 8px; border-radius: 50%; background: rgba(245, 242, 237, 0.28); }
+  .shot__bar span:nth-child(2), .shot__bar span:nth-child(3) { background: rgba(245, 242, 237, 0.18); }
+  .shot__empty {
+    aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center;
+    color: rgba(245, 242, 237, 0.4); font-size: 11px;
+  }
+  .shot img { width: 100%; height: auto; display: block; }
+  .shot figcaption {
+    margin-top: 10px; font-size: 11px; letter-spacing: 0.14em;
+    color: rgba(20, 16, 13, 0.5);
+  }
+  .section--ink .shot figcaption { color: rgba(245, 242, 237, 0.45); }
+</style>

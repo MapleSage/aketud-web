@@ -1,0 +1,49 @@
+{
+  "metaTitle": "Workplace Policy — AKETUD",
+  "metaDescription": "Office rules and regulations — cultivating a safe and inclusive workplace at AKETUD.",
+  "eyebrow": "Workplace Policy",
+  "title": "Office Rules & Regulations",
+  "intro": "Cultivating a safe and inclusive workplace. Effective date: December 4, 2019.",
+  "prose": [
+    {
+      "heading": "Introduction",
+      "body": [
+        "At AKETUD, our commitment to a workplace that champions safety, respect, and dignity stands at the forefront of our operations. We go beyond ensuring our workplace is free from discrimination, harassment, and retaliation — we work to make every employee feel genuinely valued, heard, and supported.",
+        "We continuously review our compensation and benefits to meet the diverse needs of our team, invest in professional growth through ongoing training and mentorship, and actively promote an inclusive environment where employees of any background, identity, or belief can thrive.",
+        "We prioritize work-life balance, offer flexible working hours, and support remote work arrangements where the role allows it."
+      ]
+    },
+    {
+      "heading": "Work Hours & Attendance",
+      "body": [
+        "Standard hours run 9:00 AM to 5:00 PM, Monday through Friday.",
+        "Flexible work-hour arrangements are available on request and manager approval, to fit school drop-offs, study schedules, or personal working rhythm.",
+        "Employees get a one-hour lunch break plus two 15-minute breaks — one morning, one afternoon."
+      ]
+    },
+    {
+      "heading": "Leave Policies",
+      "body": [
+        "Annual leave: 12 paid days per year.",
+        "Sick leave: 7 paid days per year.",
+        "Maternity/paternity leave: as per statutory requirements in your location.",
+        "Bereavement leave: 5 paid days per year.",
+        "Public holidays: per the company calendar for your location.",
+        "Unpaid leave: available on request and approval for circumstances beyond standard leave."
+      ]
+    },
+    {
+      "heading": "Compensation & Benefits",
+      "body": [
+        "A competitive, market-aligned salary structure that accounts for cost of living and prevailing wages in your location, plus overtime pay per local policy and performance-based bonuses.",
+        "Self-funded medical, dental, and vision insurance, customized by location for you and your family.",
+        "Retirement plans — 401(k) or Employee Provident Fund (EPF) depending on location."
+      ]
+    }
+  ],
+  "cta": {
+    "eyebrow": "Questions",
+    "line": "Questions about this policy? Reach out directly.",
+    "button": { "label": "Contact us", "href": "/contact" }
+  }
+}

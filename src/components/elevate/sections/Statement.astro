@@ -1,0 +1,54 @@
+---
+/* Statement — a label + a large pull-quote-style lead, optional supporting
+   copy, optional CTA, optional extra content via the default slot (e.g. a
+   badge). Used for "thesis"/"about" style panels: one strong claim, not a
+   grid. `lead` supports the site's *word* → italic convention. */
+import { emphasize } from '../../../lib/site';
+
+interface Cta { label: string; href: string }
+interface Props {
+  label?: string;
+  lead: string;
+  sub?: string;
+  cta?: Cta;
+  dark?: boolean;
+  /** "display" (default) — a short, punchy claim at display-2 scale.
+      "prose" — a longer paragraph (a bio, a multi-sentence statement) at a
+      readable body-serif scale instead of blowing it up to display size. */
+  leadSize?: 'display' | 'prose';
+}
+const { label, lead, sub, cta, dark = false, leadSize = 'display' } = Astro.props;
+---
+<section class:list={['eh-statement', { 'eh-statement--dark': dark }]}>
+  <div class="hs-elevate-content-wrapper eh-statement__grid">
+    {label && <p class="hs-elevate-tag eh-statement__label">{label}</p>}
+    <div class="eh-statement__body">
+      <p
+        class:list={[
+          'eh-statement__lead',
+          leadSize === 'display' ? 'hs-elevate-display-2' : 'hs-elevate-h3 eh-statement__lead--prose',
+        ]}
+        set:html={emphasize(lead)}
+      ></p>
+      {sub && <p class="eh-statement__sub">{sub}</p>}
+      {cta && <a class="hs-elevate-button hs-elevate-button--primary" href={cta.href}>{cta.label}</a>}
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-statement { padding-block: var(--hsElevate--section--large__verticalPadding); }
+  .eh-statement--dark { background: var(--hsElevate--color--base--3); color: var(--hsElevate--color--base--1); }
+  .eh-statement__grid { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
+  .eh-statement__label { flex: 0 0 auto; }
+  .eh-statement__body { flex: 1 1 560px; min-width: 0; position: relative; }
+  .eh-statement__lead { margin: 0 0 20px; max-width: 20ch; }
+  .eh-statement--dark .eh-statement__lead { color: inherit; }
+  .eh-statement__lead--prose { max-width: 62ch; font-weight: 500; line-height: 1.45; }
+  .eh-statement__sub {
+    font-size: 17px; line-height: 1.7; max-width: 60ch; margin: 0 0 24px;
+    white-space: pre-line; color: var(--hsElevate--body__fontColor, #4a5a72);
+  }
+  .eh-statement--dark .eh-statement__sub { color: rgba(255,255,255,0.75); }
+</style>

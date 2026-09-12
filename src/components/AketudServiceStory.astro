@@ -1,0 +1,162 @@
+---
+import ElevateBase from '../layouts/ElevateBase.astro';
+import CtaBand from './elevate/sections/CtaBand.astro';
+
+interface Props { c: any; variant: 'digital' | 'innovate' | 'sageinsure' | 'qa' | 'modernization' | 'adm'; }
+const { c, variant } = Astro.props;
+
+const stories = {
+  digital: {
+    index: '01',
+    visual: '/reference-images/reference-social.png',
+    visualAlt: 'Public reference image showing a connected operations team',
+    proof: '/reference-images/reference-hero.png',
+    proofAlt: 'Public reference image showing collaborative operating work',
+    proofLabel: 'An experience is only digital when it reaches the operating record.',
+    proofBody: 'We connect the customer-facing moment to policy, rating, documents and status—not to a detached microsite. That keeps the journey useful after the click.',
+    listLabel: 'Where the work lands',
+  },
+  innovate: {
+    index: '02',
+    visual: '/reference-images/reference-hero.png',
+    visualAlt: 'Public reference image showing an operating team and intelligence surfaces',
+    proof: '/reference-images/ai-automation.png',
+    proofAlt: 'Public reference image showing AI automation concepts',
+    proofLabel: 'Useful experiments must survive contact with policy operations.',
+    proofBody: 'We take AI concepts into controlled workflows: source evidence remains visible, decision states are explicit, and operators can stop or route work without losing context.',
+    listLabel: 'What gets made operational',
+  },
+  sageinsure: {
+    index: '03',
+    visual: '/reference-images/insurance-operations.png',
+    visualAlt: 'Public reference image showing insurance operations capabilities',
+    proof: '/reference-images/reference-social.png',
+    proofAlt: 'Public reference image showing collaborative insurance operations',
+    proofLabel: 'One insurance record, not a collection of integrations.',
+    proofBody: 'SageInsure is the operating layer that connects intake, decisioning, policy administration, accounting and claims so each team works against the same current state.',
+    listLabel: 'The insurance record',
+  },
+  qa: {
+    index: '04',
+    visual: '/reference-images/cloud-architecture.png',
+    visualAlt: 'Public reference image showing technical architecture and controls',
+    proof: '/reference-images/reference-hero.png',
+    proofAlt: 'Public reference image showing an operating team',
+    proofLabel: 'Quality engineering is a product discipline, not a release gate.',
+    proofBody: 'We test the moments that change the book: rating results, effective dates, policy state, documents, integrations and accounting entries. Traceability matters more than a green dashboard.',
+    listLabel: 'What is held to account',
+  },
+  modernization: {
+    index: '05',
+    visual: '/reference-images/reference-social.png',
+    visualAlt: 'Public reference image showing a connected operating environment',
+    proof: '/reference-images/cloud-architecture.png',
+    proofAlt: 'Public reference image showing a connected technical foundation',
+    proofLabel: 'Modernization begins by preserving the truth in the old system.',
+    proofBody: 'We map existing policy behavior, separate essential rules from accidental process, and move operations in controlled slices. The goal is a stronger operating record—not a visual reskin.',
+    listLabel: 'The migration sequence',
+  },
+  adm: {
+    index: '06',
+    visual: '/reference-images/reference-hero.png',
+    visualAlt: 'Public reference image showing a collaborative operating team',
+    proof: '/reference-images/ai-automation.png',
+    proofAlt: 'Public reference image showing AI automation concepts',
+    proofLabel: 'Application management is continuous ownership of the operating surface.',
+    proofBody: 'We keep systems dependable after launch: investigate operational gaps, improve workflows, manage releases and retain the technical knowledge that matters when a policy or claim needs attention.',
+    listLabel: 'How we keep it running',
+  },
+}[variant];
+
+const cta = c.cta?.button ?? { label: 'Talk to AKETUD', href: '/contact' };
+---
+
+<ElevateBase title={c.metaTitle} description={c.metaDescription} navActive="Home">
+  <section class="service-hero">
+    <div class="service-hero__inner hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+      <div class="service-hero__copy">
+        <p class="service-hero__index">{stories.index} / AKETUD CAPABILITY</p>
+        <p class="hs-elevate-tag">{c.eyebrow}</p>
+        <h1>{c.title}</h1>
+        <p class="service-hero__intro">{c.intro}</p>
+        <div class="service-hero__actions">
+          <a class="hs-elevate-button hs-elevate-button--primary" href={cta.href}>{cta.label}</a>
+          <a class="service-hero__text-link" href="#workflow">See the workflow <span>↘</span></a>
+        </div>
+      </div>
+      <figure class="service-hero__visual">
+        <img src={stories.visual} alt={stories.visualAlt} loading="eager" />
+        <figcaption>Operational view / AKETUD systems</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="workflow" class="service-workflow">
+    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+      <div class="service-workflow__head">
+        <p class="hs-elevate-tag">{stories.listLabel}</p>
+        <p>Insurance work changes state. These are the places where {c.title.toLowerCase()} needs to remain understandable, connected and usable.</p>
+      </div>
+      <div class="service-workflow__grid">
+        {(c.steps ?? []).map((step: any, i: number) => (
+          <article class="service-workflow__card">
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            <h2>{step.heading}</h2>
+            <p>{step.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="service-proof">
+    <div class="service-proof__inner hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+      <div class="service-proof__copy">
+        <p class="hs-elevate-tag">A working surface</p>
+        <h2>{stories.proofLabel}</h2>
+        <p>{stories.proofBody}</p>
+        <a class="service-proof__link" href="/platform">Explore the Platform <span>↗</span></a>
+      </div>
+      <figure class="service-proof__visual">
+        <img src={stories.proof} alt={stories.proofAlt} loading="lazy" />
+      </figure>
+    </div>
+  </section>
+
+  <CtaBand tone="dark" eyebrow={c.cta?.eyebrow ?? 'Start with the work'} heading={c.cta?.line ?? 'Bring us the operating problem.'} ctaPrimary={cta} />
+</ElevateBase>
+
+<style>
+  .service-hero { background:#edf6fa; overflow:hidden; padding:150px 0 78px; }
+  .service-hero__inner { display:grid; grid-template-columns:minmax(0,.95fr) minmax(420px,1.05fr); align-items:center; gap:72px; }
+  .service-hero__index { margin:0 0 28px; color:#156582; font-size:11px; font-weight:700; letter-spacing:.14em; }
+  .service-hero h1 { margin:14px 0 22px; max-width:12ch; color:#062b43; font-size:clamp(48px,5vw,80px); line-height:.98; letter-spacing:-.06em; }
+  .service-hero__intro { max-width:48ch; margin:0; color:#34546a; font-size:19px; line-height:1.55; }
+  .service-hero__actions { display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin-top:32px; }
+  .service-hero__text-link,.service-proof__link { color:#062b43; font-size:14px; font-weight:700; letter-spacing:.04em; text-decoration:none; }
+  .service-hero__text-link span,.service-proof__link span { color:#0d7594; margin-left:6px; }
+  .service-hero__visual { position:relative; margin:0; padding:14px 0 0 14px; }
+  .service-hero__visual::before { content:""; position:absolute; inset:0 14px 14px 0; background:#0a4b69; border-radius:16px; transform:translate(16px,16px); }
+  .service-hero__visual img { position:relative; z-index:1; display:block; width:100%; min-height:330px; max-height:510px; object-fit:cover; border-radius:16px; box-shadow:0 28px 80px rgba(4,42,63,.2); }
+  .service-hero__visual figcaption { position:relative; z-index:1; padding-top:13px; color:#638092; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  .service-workflow { padding:100px 0; background:#fff; }
+  .service-workflow__head { display:grid; grid-template-columns:1fr minmax(280px,520px); gap:48px; align-items:start; margin-bottom:48px; }
+  .service-workflow__head p:last-child { margin:0; color:#4b6879; font-size:18px; line-height:1.55; }
+  .service-workflow__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid rgba(6,43,67,.15); }
+  .service-workflow__card { min-height:250px; padding:30px 30px 24px 0; border-right:1px solid rgba(6,43,67,.15); }
+  .service-workflow__card:not(:first-child) { padding-left:30px; }
+  .service-workflow__card:last-child { border-right:0; }
+  .service-workflow__card span { color:#0d7594; font-size:12px; font-weight:800; letter-spacing:.12em; }
+  .service-workflow__card h2 { margin:42px 0 14px; color:#062b43; font-size:23px; line-height:1.1; letter-spacing:-.03em; }
+  .service-workflow__card p { margin:0; color:#587283; font-size:15px; line-height:1.6; }
+  .service-proof { padding:92px 0; background:#062b43; color:#fff; }
+  .service-proof__inner { display:grid; grid-template-columns:.85fr 1.15fr; gap:78px; align-items:center; }
+  .service-proof__copy .hs-elevate-tag { color:#8ed6ea; }
+  .service-proof h2 { margin:16px 0 20px; max-width:18ch; font-size:clamp(34px,4vw,56px); line-height:1; letter-spacing:-.055em; }
+  .service-proof__copy p { max-width:45ch; color:rgba(255,255,255,.74); font-size:17px; line-height:1.6; }
+  .service-proof__link { display:inline-block; margin-top:15px; color:#fff; }
+  .service-proof__visual { margin:0; }
+  .service-proof__visual img { display:block; width:100%; border-radius:14px; box-shadow:0 24px 70px rgba(0,0,0,.28); }
+  @media (max-width:900px) { .service-hero { padding-top:122px; } .service-hero__inner,.service-proof__inner { grid-template-columns:1fr; gap:48px; } .service-hero__visual { max-width:720px; } .service-workflow__grid { grid-template-columns:1fr; } .service-workflow__card,.service-workflow__card:not(:first-child) { min-height:0; padding:26px 0; border-right:0; border-bottom:1px solid rgba(6,43,67,.15); } .service-workflow__head { grid-template-columns:1fr; gap:16px; } }
+  @media (max-width:560px) { .service-hero { padding:112px 0 60px; } .service-hero__inner { gap:38px; } .service-hero h1 { font-size:50px; } .service-hero__intro { font-size:17px; } .service-hero__visual img { min-height:220px; } .service-workflow,.service-proof { padding:68px 0; } }
+</style>

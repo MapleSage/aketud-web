@@ -1,0 +1,106 @@
+---
+/* Elevate site footer — dark, centered logo over a row of nav columns,
+   then a centered row of round social icon buttons, then a legal bar.
+   Ports the live site's actual footer layout (logo-top-center, not a
+   brand-block-beside-columns layout) — reads footerColumns / social /
+   address / org from settings/site.json. A column's `heading` is itself a
+   link when the column has an `href` (most of these are single-page
+   columns with no children, matching the real site). */
+import { settings } from '../../lib/site';
+const s = await settings();
+const cols = s.footerColumns ?? [];
+const year = new Date().getFullYear();
+---
+<footer class="ef">
+  <div class="ef__inner">
+    <a class="ef__logo-link" href="/" aria-label={`${s.org} — home`}>
+      <img class="ef__logo" src={s.logoWhite} alt={s.org} width="220" height="63" />
+    </a>
+
+    <nav class="ef__cols" aria-label="Footer">
+      {cols.map((c) => (
+        <div class="ef__col">
+          {c.href ? <a class="ef__col-heading" href={c.href}>{c.heading}</a> : <h3 class="ef__col-heading">{c.heading}</h3>}
+          {c.links?.length > 0 && (
+            <ul>
+              {c.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+            </ul>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    {s.social?.length > 0 && (
+      <ul class="ef__social">
+        {s.social.map((l) => (
+          <li>
+            <a href={l.href} target="_blank" rel="noopener" aria-label={`Follow us on ${l.label}`}>
+              {l.icon
+                ? <svg viewBox={l.icon.viewBox} aria-hidden="true"><path d={l.icon.path} fill="currentColor" /></svg>
+                : l.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+
+  <div class="ef__legal">
+    <a href="/privacy">Privacy Policy</a>
+    <span aria-hidden="true">·</span>
+    <span>Legal</span>
+    <span aria-hidden="true">·</span>
+    <span>© {year} {s.org.toUpperCase()} - FZCO. All rights reserved.</span>
+  </div>
+</footer>
+
+<style>
+  .ef {
+    background: linear-gradient(145deg, #052F3A 0%, #042934 56%, #03232E 100%); color: rgba(235, 249, 251, 0.72);
+    font-family: var(--hsElevate--body__font, system-ui, sans-serif);
+    text-align: center;
+  }
+  .ef__inner {
+    max-width: var(--hsElevate--contentWrapper--wide__maxWidth, 1296px);
+    margin: 0 auto; padding: 72px var(--hsElevate--section--horizontalPadding, 32px) 40px;
+  }
+  .ef__logo-link { display: inline-block; margin: 0 0 48px; }
+  .ef__logo { height: 64px; width: auto; display: block; margin: 0 auto; }
+
+  .ef__cols {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 40px clamp(24px, 4vw, 56px); text-align: left;
+    margin: 0 0 48px;
+  }
+  .ef__col { min-width: 130px; }
+  .ef__col-heading {
+    display: inline-block; margin: 0 0 16px; font-size: 15px; font-weight: 700;
+    color: #fff; text-decoration: none;
+  }
+  h3.ef__col-heading { display: block; }
+  .ef__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  .ef__col a { color: rgba(255, 255, 255, 0.7); font-size: 14px; }
+  .ef__col a:hover { color: #fff; }
+
+  .ef__social { list-style: none; margin: 0 0 8px; padding: 0; display: flex; justify-content: center; gap: 14px; }
+  .ef__social a {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3); color: rgba(255, 255, 255, 0.85);
+  }
+  .ef__social a:hover { border-color: #fff; color: #fff; }
+  .ef__social svg { width: 16px; height: 16px; }
+
+  .ef__legal {
+    padding: 22px var(--hsElevate--section--horizontalPadding, 32px);
+    border-top: 1px solid rgba(169, 215, 231, 0.16);
+    display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+    font-size: 12.5px; color: rgba(218, 241, 246, 0.55);
+  }
+  .ef__legal a { color: rgba(218, 241, 246, 0.66); }
+  .ef__legal a:hover { color: #fff; }
+
+  @media (max-width: 700px) {
+    .ef__cols { justify-content: flex-start; }
+  }
+</style>

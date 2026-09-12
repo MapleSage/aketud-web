@@ -1,0 +1,111 @@
+---
+const offerings = [
+  { no: '01', title: 'Underwriting & decisioning', copy: 'Turn risk submissions into inspectable underwriting files. Keep source evidence, decision stages and operator intervention in the same workbench.', href: '/uw' },
+  { no: '02', title: 'Policy administration & rating', copy: 'Quote, rate, bind and issue against effective-dated rules on a shared policy record—without handing state between disconnected tools.', href: '/pas' },
+  { no: '03', title: 'Claims & FNOL', copy: 'Structure incoming photos, scans and documents, validate the first notice, and route the claim with the relevant evidence already attached.', href: '/fnol' },
+  { no: '04', title: 'Premium & accounting operations', copy: 'Connect written, earned, billed and collected premium with double-entry discipline, so the operating book can explain itself.', href: '/platform' },
+  { no: '05', title: 'Agency & distribution operations', copy: 'Support appointed-agent journeys, commissions, documents and policy status without forcing distribution teams into spreadsheet workarounds.', href: '/digital' },
+  { no: '06', title: 'Data, controls & assurance', copy: 'Make policy history, operational evidence and test coverage part of delivery so a new capability can be understood after launch.', href: '/qa-testing' },
+];
+
+const products = [
+  { no: '01', name: 'Platform', image: '/reference-images/reference-social.png', body: 'One workspace across quote, policy, claim and reporting.', href: '/platform' },
+  { no: '02', name: 'PAS', image: '/reference-images/reference-hero.png', body: 'Rating, binding and issuance on a shared policy record.', href: '/pas' },
+  { no: '03', name: 'UW', image: '/reference-images/cloud-architecture.png', body: 'Inspectable risk review with source-level traceability.', href: '/uw' },
+  { no: '04', name: 'FNOL', image: '/reference-images/insurance-operations.png', body: 'Evidence-grounded first notice and claims triage.', href: '/fnol' },
+  { no: '05', name: 'Atlas', image: '/reference-images/ai-automation.png', body: 'Corporate and regulatory relationships with confidence.', href: '/atlas' },
+];
+---
+
+<section class="io-record">
+  <div class="io-record__inner hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+    <div class="io-record__copy">
+      <p class="hs-elevate-tag">The operating record</p>
+      <h2>Insurance work is a chain of state changes.</h2>
+      <p>Submission becomes a file. A file becomes a decision. A decision becomes a policy, premium, document, accounting entry or claim. AKETUD builds the layer that makes those changes connected, inspectable and recoverable.</p>
+      <a href="/platform" class="io-record__link">See the shared record <span>↗</span></a>
+    </div>
+    <figure class="io-record__visual">
+      <img src="/reference-images/reference-hero.png" alt="Public reference image showing a connected operations team" loading="lazy" />
+      <figcaption>Public operating view / connected teams and systems</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="io-offerings">
+  <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+    <div class="io-section-head">
+      <p class="hs-elevate-tag">Full insurance capability</p>
+      <h2>From the first submission to the next operational action.</h2>
+    </div>
+    <div class="io-offerings__grid">
+      {offerings.map((offering) => (
+        <a class="io-offering" href={offering.href}>
+          <span>{offering.no}</span>
+          <h3>{offering.title}</h3>
+          <p>{offering.copy}</p>
+          <b>Explore <i>↗</i></b>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="io-products">
+  <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+    <div class="io-section-head io-section-head--inverse">
+      <p class="hs-elevate-tag">What we built</p>
+      <h2>Products with a job in the operation.</h2>
+      <p>Each system has a focused surface. Together, they read and write the same operating reality.</p>
+    </div>
+    <div class="io-products__rail">
+      {products.map((product) => (
+        <a class="io-product" href={product.href}>
+          <img src={product.image} alt={`${product.name} operating screen`} loading="lazy" />
+          <div><span>{product.no}</span><h3>{product.name}</h3><p>{product.body}</p><b>Open system ↗</b></div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="io-insights">
+  <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--wide io-insights__inner">
+    <div><p class="hs-elevate-tag">From the field</p><h2>How we think about insurance operations.</h2></div>
+    <div><p>We write about the operating questions that persist after the demo: policy history, intake evidence, control points, accounting truth and how teams keep systems useful after release.</p><a href="/insights">Read AKETUD insights <span>↗</span></a></div>
+  </div>
+</section>
+
+<style>
+  .io-record { padding:112px 0; background:#fff; }
+  .io-record__inner { display:grid; grid-template-columns:.78fr 1.22fr; gap:84px; align-items:center; }
+  .io-record h2,.io-section-head h2,.io-insights h2 { margin:15px 0 20px; color:#062b43; font-size:clamp(34px,4vw,56px); line-height:1; letter-spacing:-.06em; }
+  .io-record__copy p:not(.hs-elevate-tag) { max-width:43ch; color:#557182; font-size:17px; line-height:1.6; }
+  .io-record__link,.io-insights a { display:inline-block; margin-top:12px; color:#062b43; font-size:13px; font-weight:800; letter-spacing:.05em; text-decoration:none; }
+  .io-record__link span,.io-insights a span { color:#0d7594; }
+  .io-record__visual { margin:0; }
+  .io-record__visual img { display:block; width:100%; border-radius:14px; box-shadow:0 24px 75px rgba(6,43,67,.16); }
+  .io-record__visual figcaption { margin-top:12px; color:#6a8594; font-size:10px; font-weight:700; letter-spacing:.11em; text-transform:uppercase; }
+  .io-offerings { padding:104px 0 112px; background:#edf6fa; }
+  .io-section-head { display:grid; grid-template-columns:.55fr 1.15fr; gap:50px; align-items:start; margin-bottom:52px; }
+  .io-section-head h2 { max-width:18ch; margin-top:0; }
+  .io-offerings__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid rgba(6,43,67,.16); }
+  .io-offering { position:relative; min-height:300px; padding:27px 28px 25px 0; color:inherit; text-decoration:none; border-right:1px solid rgba(6,43,67,.16); border-bottom:1px solid rgba(6,43,67,.16); transition:background .2s,padding .2s; }
+  .io-offering:nth-child(3n+2),.io-offering:nth-child(3n+3) { padding-left:28px; }
+  .io-offering:nth-child(3n) { border-right:0; }
+  .io-offering:hover { background:rgba(255,255,255,.58); }
+  .io-offering span,.io-product span { color:#0d7594; font-size:11px; font-weight:800; letter-spacing:.12em; }
+  .io-offering h3 { margin:40px 0 13px; color:#062b43; font-size:23px; line-height:1.1; letter-spacing:-.035em; }
+  .io-offering p { max-width:34ch; margin:0; color:#587283; font-size:15px; line-height:1.58; }
+  .io-offering b { position:absolute; bottom:25px; color:#062b43; font-size:11px; letter-spacing:.06em; text-transform:uppercase; } .io-offering i { color:#0d7594; font-style:normal; }
+  .io-products { padding:110px 0; background:#062b43; }
+  .io-section-head--inverse h2 { color:#fff; } .io-section-head--inverse .hs-elevate-tag { color:#8ed6ea; } .io-section-head--inverse p:last-child { margin:0; max-width:42ch; color:rgba(255,255,255,.72); font-size:17px; line-height:1.6; }
+  .io-products__rail { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px; }
+  .io-product { overflow:hidden; min-height:390px; border-radius:12px; background:#0b3d59; color:#fff; text-decoration:none; transition:transform .2s ease; }
+  .io-product:hover { transform:translateY(-5px); } .io-product img { display:block; width:100%; height:130px; object-fit:cover; opacity:.86; }
+  .io-product div { padding:22px 18px; } .io-product h3 { margin:28px 0 11px; font-size:26px; letter-spacing:-.04em; } .io-product p { min-height:80px; margin:0; color:rgba(255,255,255,.68); font-size:14px; line-height:1.5; } .io-product b { display:block; margin-top:24px; color:#8ed6ea; font-size:10px; letter-spacing:.1em; text-transform:uppercase; }
+  .io-insights { padding:92px 0; background:#fff; } .io-insights__inner { display:grid; grid-template-columns:1fr .75fr; gap:70px; align-items:end; } .io-insights__inner p:last-child { margin:0; color:#557182; font-size:18px; line-height:1.55; }
+  @media (max-width:1000px) { .io-products__rail { grid-template-columns:repeat(3,minmax(0,1fr)); } .io-product { min-height:340px; } }
+  @media (max-width:820px) { .io-record__inner,.io-insights__inner,.io-section-head { grid-template-columns:1fr; gap:28px; } .io-offerings__grid { grid-template-columns:1fr; } .io-offering,.io-offering:nth-child(3n+2),.io-offering:nth-child(3n+3) { min-height:230px; padding:26px 0; border-right:0; } .io-products__rail { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:520px) { .io-record,.io-offerings,.io-products,.io-insights { padding:70px 0; } .io-products__rail { grid-template-columns:1fr; } .io-product { min-height:0; } .io-product p { min-height:0; } }
+</style>

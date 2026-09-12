@@ -1,0 +1,31 @@
+---
+/* Insurance Operations — Elevate theme. Same content/pages/insurance.json
+   and products collection as the old dark-editorial version; only the
+   rendering changed. */
+import ElevateBase from '../layouts/ElevateBase.astro';
+import AketudHero from '../components/AketudHero.astro';
+import Steps from '../components/elevate/sections/Steps.astro';
+import CtaBand from '../components/elevate/sections/CtaBand.astro';
+import AketudMainOffer from '../components/AketudMainOffer.astro';
+import { page } from '../lib/site';
+
+const c = await page('insurance');
+const chainHeading = c.sections?.[0]?.heading ?? 'The operations chain';
+const chainEyebrow = c.sections?.[0]?.eyebrow;
+---
+<ElevateBase title={c.metaTitle} description={c.metaDescription} transparentHeader navActive="Home">
+  <AketudHero ctaHref="/contact" />
+
+  <div id="operations"><Steps eyebrow={chainEyebrow} heading={chainHeading} items={c.steps ?? []} /></div>
+
+  <AketudMainOffer />
+
+  {c.cta && (
+    <CtaBand
+      tone="dark"
+      eyebrow={c.cta.eyebrow}
+      heading={c.cta.line}
+      ctaPrimary={c.cta.button}
+    />
+  )}
+</ElevateBase>

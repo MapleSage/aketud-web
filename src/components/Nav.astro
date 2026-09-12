@@ -1,0 +1,79 @@
+---
+/* Dark editorial nav — artboard 01/04/05. Links from settings/site.json. */
+import { settings } from '../lib/site';
+interface Props { active?: string; absolute?: boolean }
+const { active = '', absolute = false } = Astro.props;
+const s = await settings();
+const items = s.nav;
+---
+<header class:list={['nav', { 'nav--absolute': absolute }]}>
+  <a class="nav__logo" href="/" aria-label="AKETUD — home">
+    <img class="nav__mark" src="/aketud-logo-white.png" alt="AKETUD" width="182" height="52" />
+  </a>
+  <button class="nav__toggle" aria-label="Menu" aria-expanded="false"><span></span></button>
+  <nav class="nav__links">
+    {items.map((i) => (
+      <a href={i.href} class:list={{ 'is-active': active === i.label }}>{i.label}</a>
+    ))}
+    <a class="nav__cta" href={s.navCta.href}>{s.navCta.label}</a>
+  </nav>
+</header>
+
+<style>
+  .nav {
+    background: var(--ink-black); color: var(--paper);
+    padding-inline: var(--gutter); min-height: 84px;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    position: relative; z-index: 50;
+  }
+  .nav--absolute { position: absolute; left: 0; right: 0; background: transparent; }
+  .nav__logo { display: flex; align-items: center; color: var(--paper); }
+  .nav__logo:hover { color: var(--paper); }
+  .nav__mark { width: auto; height: 52px; flex-shrink: 0; object-fit: contain; display: block; }
+  @media (max-width: 960px) { .nav__mark { height: 40px; } }
+  .nav__links { display: flex; align-items: center; gap: 26px; }
+  .nav__links a {
+    font-size: 13.5px; font-weight: 500; letter-spacing: 0.02em;
+    color: rgba(245, 242, 237, 0.72);
+  }
+  .nav__links a:hover, .nav__links a.is-active { color: var(--paper); }
+  .nav__cta {
+    border: 1px solid rgba(245, 242, 237, 0.35); padding: 9px 18px;
+    border-radius: 2px; color: var(--paper) !important;
+  }
+  .nav__cta:hover { border-color: var(--paper); }
+  .nav__toggle { display: none; background: none; border: 0; width: 40px; height: 40px;
+    position: relative; cursor: pointer; }
+  .nav__toggle span, .nav__toggle span::before, .nav__toggle span::after {
+    content: ''; position: absolute; left: 8px; width: 24px; height: 1.5px;
+    background: var(--paper); transition: transform .2s, opacity .2s;
+  }
+  .nav__toggle span { top: 19px; }
+  .nav__toggle span::before { top: -6px; }
+  .nav__toggle span::after { top: 6px; }
+  .nav--open .nav__toggle span { background: transparent; }
+  .nav--open .nav__toggle span::before { transform: translateY(6px) rotate(45deg); }
+  .nav--open .nav__toggle span::after { transform: translateY(-6px) rotate(-45deg); }
+
+  @media (max-width: 960px) {
+    .nav { min-height: 64px; }
+    .nav__toggle { display: block; }
+    .nav__links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--ink-black); padding: 6px 0; display: none;
+    }
+    .nav--open .nav__links { display: flex; }
+    .nav__links a { padding: 15px var(--gutter); }
+    .nav__cta { border: 0; }
+  }
+</style>
+
+<script>
+  const el = document.querySelector('.nav');
+  const btn = el?.querySelector('.nav__toggle');
+  btn?.addEventListener('click', () => {
+    const open = el.classList.toggle('nav--open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+</script>

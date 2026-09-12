@@ -1,0 +1,19 @@
+---
+// Sveltia CMS mount. Config lives at /admin/config.yml (public/admin/config.yml).
+// A real route rather than a public/ index file so it doesn't collide with the
+// [product] dynamic route in dev.
+export const prerender = true;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Insights — Content</title>
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+  </head>
+  <body>
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+  </body>
+</html>

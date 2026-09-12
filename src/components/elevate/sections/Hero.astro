@@ -1,0 +1,162 @@
+---
+/* Elevate hero — two layouts:
+     "split" — text one side, media the other (light or dark background)
+     "full"  — full-bleed background media, centered text (pairs with
+               <Header transparent> — see ElevateBase transparentHeader)
+   All copy comes in as props; nothing here is brand-specific. */
+import { emphasize } from '../../../lib/site';
+
+interface Cta { label: string; href: string }
+interface Media {
+  type: 'image' | 'video';
+  src: string;       // image: the <img> src. video: the .mp4 source
+  webm?: string;      // video only — same clip as .webm, tried first
+  poster?: string;
+  alt?: string;
+}
+
+interface Props {
+  variant?: 'split' | 'full';
+  dark?: boolean;
+  eyebrow?: string;
+  /** supports literal \n for line breaks and *word* for an italic span,
+      same convention as the rest of the site's content (see lib/site.ts) */
+  heading: string;
+  sub?: string;
+  ctaPrimary?: Cta;
+  ctaSecondary?: Cta;
+  media?: Media;
+  /** "full" only — pushes content down clear of a transparent fixed header */
+  clearHeader?: boolean;
+}
+const {
+  variant = 'split',
+  dark = false,
+  eyebrow,
+  heading,
+  sub,
+  ctaPrimary,
+  ctaSecondary,
+  media,
+  clearHeader = false,
+} = Astro.props;
+
+const headingHtml = heading.split('\n').map(emphasize).join('<br />');
+---
+<section
+  class:list={[
+    'eh-hero', `eh-hero--${variant}`,
+    { 'eh-hero--dark': dark, 'eh-hero--clear-header': clearHeader },
+  ]}
+>
+  {variant === 'full' && media && (
+    <div class="eh-hero__bg">
+      {media.type === 'video' ? (
+        <video autoplay muted loop playsinline preload="metadata" poster={media.poster}>
+          {media.webm && <source src={media.webm} type="video/webm" />}
+          <source src={media.src} type="video/mp4" />
+        </video>
+      ) : (
+        <img src={media.src} alt={media.alt ?? ''} />
+      )}
+      <div class="eh-hero__scrim"></div>
+    </div>
+  )}
+
+  <div class="hs-elevate-content-wrapper eh-hero__inner">
+    <div class="eh-hero__copy">
+      {eyebrow && <p class="hs-elevate-tag eh-hero__eyebrow">{eyebrow}</p>}
+      <h1 class="hs-elevate-h1 eh-hero__h" set:html={headingHtml}></h1>
+      {sub && <p class="eh-hero__sub">{sub}</p>}
+      {(ctaPrimary || ctaSecondary) && (
+        <div class="eh-hero__ctas">
+          {ctaPrimary && (
+            <a
+              class:list={['hs-elevate-button', variant === 'full' ? 'hs-elevate-button--secondary eh-hero__cta--ghost' : 'hs-elevate-button--primary']}
+              href={ctaPrimary.href}
+            >{ctaPrimary.label}</a>
+          )}
+          {ctaSecondary && <a class="hs-elevate-button hs-elevate-button--secondary" href={ctaSecondary.href}>{ctaSecondary.label}</a>}
+        </div>
+      )}
+    </div>
+
+    {variant === 'split' && media && (
+      <div class="eh-hero__media">
+        {media.type === 'video' ? (
+          <video autoplay muted loop playsinline preload="metadata" poster={media.poster}>
+            {media.webm && <source src={media.webm} type="video/webm" />}
+            <source src={media.src} type="video/mp4" />
+          </video>
+        ) : (
+          <img src={media.src} alt={media.alt ?? ''} />
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .eh-hero { position: relative; overflow: hidden; }
+  .eh-hero--split {
+    padding-block: var(--hsElevate--section--large__verticalPadding);
+    background: var(--hsElevate--color--base--1);
+  }
+  .eh-hero--split.eh-hero--dark {
+    background: var(--hsElevate--color--base--3);
+    color: var(--hsElevate--color--base--1);
+  }
+  .eh-hero--split .eh-hero__inner {
+    display: flex; align-items: center; gap: 64px; flex-wrap: wrap;
+  }
+  .eh-hero--split .eh-hero__copy { flex: 1 1 420px; }
+  .eh-hero--split .eh-hero__media { flex: 1 1 420px; min-width: 0; }
+  .eh-hero--split .eh-hero__media img,
+  .eh-hero--split .eh-hero__media video {
+    width: 100%; height: auto; display: block; border-radius: 12px;
+  }
+
+  .eh-hero--full {
+    /* Padding, not a forced viewport-height min-height — the real hero is a
+       photo with content sized to its copy, not a fullscreen banner. */
+    padding-block: 100px;
+    color: #fff;
+  }
+  .eh-hero--full.eh-hero--clear-header { padding-top: 176px; }
+  .eh-hero__bg { position: absolute; inset: 0; z-index: 0; }
+  .eh-hero__bg img, .eh-hero__bg video {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .eh-hero__scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(9,21,43,.35), rgba(9,21,43,.6));
+  }
+  .eh-hero--full .eh-hero__inner { position: relative; z-index: 1; width: 100%; }
+  .eh-hero--full .eh-hero__copy { max-width: 720px; }
+
+  /* Plain label, not a filled pill/badge — a soft-peach box read as a
+     stock-template cliché sitting over the hero video/dark band. */
+  .eh-hero__eyebrow {
+    display: inline-block; margin: 0 0 18px;
+    background: transparent; border: 0; padding: 0; border-radius: 0;
+    color: var(--hsElevate--color--accent--3);
+    text-transform: uppercase; letter-spacing: .08em; font-weight: 600;
+  }
+  .eh-hero__h { margin: 0 0 20px; max-width: 30ch; }
+  .eh-hero--dark .eh-hero__h, .eh-hero--full .eh-hero__h { color: inherit; }
+  .eh-hero__sub {
+    font-size: 18px; line-height: 1.65; max-width: 52ch; margin: 0 0 32px;
+    color: var(--hsElevate--body__fontColor, #4a5a72);
+  }
+  .eh-hero--dark .eh-hero__sub, .eh-hero--full .eh-hero__sub { color: rgba(255,255,255,0.82); }
+  .eh-hero__ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+  /* The full-bleed hero's photo background makes the secondary button's
+     default indigo border/text unreadable — same outline pill, recoloured
+     white, same as the live site's hero CTA over its own hero photo. */
+  .eh-hero__cta--ghost { border-color: #fff; color: #fff; }
+  .eh-hero__cta--ghost:hover { background: rgba(255,255,255,0.14); }
+
+  @media (max-width: 900px) {
+    .eh-hero--split .eh-hero__inner { flex-direction: column-reverse; }
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+/* AKETUD hero: an insurance operating field informed by the live platform. */
+interface Props { ctaHref?: string }
+const { ctaHref = '/contact' } = Astro.props;
+---
+<section class="ak-hero" aria-labelledby="ak-hero-title">
+  <div class="ak-hero__field" aria-hidden="true">
+    <span class="ak-hero__line ak-hero__line--1"></span>
+    <span class="ak-hero__line ak-hero__line--2"></span>
+    <span class="ak-hero__line ak-hero__line--3"></span>
+    <img class="ak-hero__screen" src="/reference-images/reference-social.png" alt="" />
+  </div>
+  <div class="ak-hero__inner">
+    <div class="ak-hero__meta"><span>AKETUD / INSURANCE OPERATIONS</span><span>OPERATING INTELLIGENCE / 001</span></div>
+    <div class="ak-hero__copy">
+      <p class="ak-hero__eyebrow">The decisions that have to reconcile</p>
+      <h1 id="ak-hero-title">AI You Can<br /><em>Accept.</em></h1>
+      <p class="ak-hero__sub">Platform, AI, CRM, cloud and delivery services for insurance operations that have to be right—and have to explain themselves.</p>
+      <div class="ak-hero__actions">
+        <a href="#operations" class="ak-hero__primary">Explore operations <span aria-hidden="true">↗</span></a>
+        <a href={ctaHref} class="ak-hero__secondary">Start a conversation <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="ak-hero__systems" aria-label="AKETUD operating areas">
+      <span><b>01</b> Platform</span>
+      <span><b>02</b> AI & Data</span>
+      <span><b>03</b> Delivery Services</span>
+      <span class="ak-hero__claim">A system that cannot reconcile is a demonstration.</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ak-hero { position:relative; min-height:min(810px,100svh); overflow:hidden; background:#062B43; color:#fff; isolation:isolate; }
+  .ak-hero::before { content:""; position:absolute; inset:0; opacity:.32; background-image:linear-gradient(rgba(214,239,248,.07) 1px, transparent 1px),linear-gradient(90deg,rgba(214,239,248,.07) 1px, transparent 1px); background-size:48px 48px; mask-image:linear-gradient(110deg,#000 5%,transparent 73%); z-index:-1; }
+  .ak-hero::after { content:""; position:absolute; inset:0; background:radial-gradient(circle at 70% 24%,rgba(25,128,160,.42),transparent 30%),linear-gradient(120deg,rgba(1,19,32,.12),rgba(1,19,32,.52)); z-index:-1; }
+  .ak-hero__inner { position:relative; z-index:1; max-width:1296px; min-height:inherit; margin:0 auto; padding:154px 32px 36px; display:flex; flex-direction:column; justify-content:space-between; }
+  .ak-hero__meta,.ak-hero__systems { display:flex; align-items:center; justify-content:space-between; gap:24px; color:rgba(255,255,255,.58); font:600 11px/1 Inter,system-ui,sans-serif; letter-spacing:.14em; text-transform:uppercase; }
+  .ak-hero__copy { max-width:800px; padding:clamp(52px,9vw,122px) 0 48px; }
+  .ak-hero__eyebrow { margin:0 0 18px; color:#A9D7E7; font:600 11px/1.4 Inter,system-ui,sans-serif; letter-spacing:.17em; text-transform:uppercase; }
+  .ak-hero h1 { margin:0 0 28px; max-width:760px; font:500 clamp(70px,9.5vw,142px)/.83 Inter,system-ui,sans-serif; letter-spacing:-.095em; }
+  .ak-hero h1 em { color:#8ED6EA; font-family:Inter,system-ui,sans-serif; font-style:normal; font-weight:400; letter-spacing:-.11em; }
+  .ak-hero__sub { max-width:570px; margin:0; color:rgba(255,255,255,.76); font-size:clamp(17px,1.55vw,22px); line-height:1.42; letter-spacing:-.025em; }
+  .ak-hero__actions { display:flex; flex-wrap:wrap; gap:20px; align-items:center; margin-top:34px; }
+  .ak-hero__primary,.ak-hero__secondary { display:inline-flex; align-items:center; gap:12px; font:600 11px/1 Inter,system-ui,sans-serif; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:transform .18s ease,background .18s ease; }
+  .ak-hero__primary { padding:16px 18px; background:#FFFFFF; color:#07314B; }
+  .ak-hero__secondary { color:#fff; padding:11px 0; border-bottom:1px solid rgba(255,255,255,.55); }
+  .ak-hero__primary:hover,.ak-hero__secondary:hover { transform:translateY(-2px); }
+  .ak-hero__systems { padding-top:22px; border-top:1px solid rgba(255,255,255,.22); }
+  .ak-hero__systems span { display:inline-flex; align-items:center; gap:10px; }
+  .ak-hero__systems b { color:#8ED6EA; font-weight:600; }
+  .ak-hero__claim { max-width:300px; color:#fff!important; font-family:Georgia,serif!important; font-size:14px!important; letter-spacing:0!important; text-transform:none!important; }
+  .ak-hero__field { position:absolute; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
+  .ak-hero__screen { position:absolute; width:min(53vw,760px); right:-4vw; top:23%; border-radius:14px; opacity:.9; box-shadow:0 38px 100px rgba(0,0,0,.38); transform:rotate(-2deg); }
+  .ak-hero__line { position:absolute; height:1px; background:rgba(255,255,255,.23); transform-origin:left center; }
+  .ak-hero__line--1 { width:75vw; top:28%; left:29%; transform:rotate(-13deg); }
+  .ak-hero__line--2 { width:46vw; bottom:26%; right:-8%; transform:rotate(14deg); }
+  .ak-hero__line--3 { width:33vw; top:67%; left:4%; transform:rotate(-4deg); background:rgba(142,214,234,.52); }
+  @media (max-width:900px) { .ak-hero__inner { padding:118px 20px 26px; } .ak-hero__meta span:last-child { display:none; } .ak-hero__systems { gap:12px; flex-wrap:wrap; font-size:9px; } .ak-hero__screen { width:135vw; right:-67vw; top:34%; opacity:.18; } }
+  @media (max-width:520px) {
+    .ak-hero { min-height:720px; }
+    .ak-hero h1 { font-size:clamp(66px,20vw,104px); }
+    .ak-hero__sub { font-size:17px; }
+    .ak-hero__systems { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
+    .ak-hero__systems span { min-width:0; }
+    .ak-hero__claim { display:block; grid-column:1 / -1; max-width:270px; margin-top:8px; font-size:15px!important; line-height:1.2; }
+  }
+  @media (prefers-reduced-motion:reduce) { .ak-hero * { transition:none!important; } }
+</style>

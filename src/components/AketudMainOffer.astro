@@ -1,0 +1,84 @@
+---
+const services = [
+  { no: '01', title: 'AI & data for insurance', body: 'Knowledge systems, document intelligence, workflow automation, and human review built into the work—not bolted on after it.', href: '/sageinsure' },
+  { no: '02', title: 'CRM & customer operations', body: 'HubSpot, Salesforce, portals, agency workflow, and distribution data connected to the operating record.', href: '/digital' },
+  { no: '03', title: 'Cloud & modernization', body: 'Azure and AWS architecture, APIs, data pipelines, migration, and modernization for insurance estates that cannot pause.', href: '/modernization' },
+  { no: '04', title: 'Consulting & delivery', body: 'Discovery, implementation leadership, application management, release discipline, and continuous operational improvement.', href: '/adm' },
+  { no: '05', title: 'Quality & assurance', body: 'Quality engineering and testing that keep policy, claims, premium, and customer journeys dependable through change.', href: '/qa-testing' },
+];
+---
+
+<section class="ao-intro">
+  <div class="ao-wrap">
+    <p class="ao-tag">One insurance technology partner</p>
+    <div class="ao-intro__grid">
+      <h2>Platform at the center.<br />Services where the estate needs them.</h2>
+      <p>AKETUD combines a connected insurance platform with the capabilities required to make a live insurance operation work: AI, CRM, cloud, modernization, delivery, and quality. The work starts with the operating problem—not a predefined technology sale.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ao-platform">
+  <div class="ao-wrap ao-platform__grid">
+    <div>
+      <p class="ao-tag ao-tag--light">The platform</p>
+      <h2>One operating record for the insurance work that follows.</h2>
+      <p>Quotes, policies, underwriting, claims, documents, premium, and reporting read and write the same shared reality. Platform is the product center of AKETUD—not one more disconnected tool.</p>
+      <a href="https://app.aketud.com" class="ao-link ao-link--light">Explore Insurance Command Center <span>↗</span></a>
+    </div>
+    <div class="ao-platform__systems" aria-label="Platform systems">
+      <a href="https://pas.aketud.com"><span>01</span><b>PAS</b><small>Rating, binding and issuance</small></a>
+      <a href="https://uw.aketud.com"><span>02</span><b>UW</b><small>Inspectable risk review</small></a>
+      <a href="https://fnol.aketud.com"><span>03</span><b>FNOL</b><small>Evidence-grounded claims intake</small></a>
+      <a href="https://atlas.aketud.com"><span>04</span><b>Atlas</b><small>Entity and relationship intelligence</small></a>
+    </div>
+  </div>
+</section>
+
+<section class="ao-services" id="services">
+  <div class="ao-wrap">
+    <div class="ao-section-head"><p class="ao-tag">Services for the complete insurance estate</p><h2>Bring the system, workflow, or operating blocker.</h2></div>
+    <div class="ao-services__grid">
+      {services.map((service) => (
+        <a href={service.href} class="ao-service">
+          <span>{service.no}</span><h3>{service.title}</h3><p>{service.body}</p><b>Explore service <i>↗</i></b>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="ao-specialty">
+  <div class="ao-wrap ao-specialty__grid">
+    <p class="ao-tag">Insurance, not generic enterprise software</p>
+    <div><h2>Built for the cases where context, coverage, timing, and accountability matter.</h2><p>AKETUD works across specialty and commercial insurance operations—including marine, cyber, renewable, D&O, agency, and broker workflows—where a decision must remain tied to the record that supports it.</p><a href="/contact" class="ao-link">Talk to AKETUD <span>↗</span></a></div>
+  </div>
+</section>
+
+<style>
+  .ao-wrap { max-width:1296px; margin:0 auto; padding-inline:32px; }
+  .ao-intro { padding:110px 0 105px; background:#fff; }
+  .ao-tag { margin:0; color:#0d7594; font:700 11px/1.3 system-ui,sans-serif; letter-spacing:.14em; text-transform:uppercase; }
+  .ao-intro__grid,.ao-specialty__grid { display:grid; grid-template-columns:1.05fr .85fr; gap:96px; margin-top:23px; align-items:start; }
+  .ao-intro h2,.ao-platform h2,.ao-section-head h2,.ao-specialty h2 { margin:0; color:#062b43; font:500 clamp(38px,5vw,68px)/.96 system-ui,sans-serif; letter-spacing:-.065em; }
+  .ao-intro p:last-child,.ao-specialty p:last-child { margin:5px 0 0; color:#557182; font-size:18px; line-height:1.6; }
+  .ao-platform { padding:105px 0; background:linear-gradient(145deg,#052f3a,#042934); color:#fff; }
+  .ao-tag--light { color:#8ed6ea; } .ao-platform h2 { color:#fff; max-width:14ch; margin:16px 0 25px; }
+  .ao-platform p:not(.ao-tag) { max-width:53ch; color:rgba(235,249,251,.72); font-size:17px; line-height:1.6; }
+  .ao-platform__grid { display:grid; grid-template-columns:1fr 1fr; gap:90px; align-items:end; }
+  .ao-platform__systems { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid rgba(169,215,231,.24); border-left:1px solid rgba(169,215,231,.24); }
+  .ao-platform__systems a { min-height:170px; padding:20px; border-right:1px solid rgba(169,215,231,.24); border-bottom:1px solid rgba(169,215,231,.24); color:#fff; text-decoration:none; transition:background .18s ease; }
+  .ao-platform__systems a:hover { background:rgba(142,214,234,.08); }
+  .ao-platform__systems span { display:block; color:#8ed6ea; font:700 10px/1 system-ui,sans-serif; letter-spacing:.12em; }
+  .ao-platform__systems b { display:block; margin-top:42px; font-size:27px; letter-spacing:-.04em; } .ao-platform__systems small { display:block; margin-top:5px; color:rgba(235,249,251,.62); font-size:13px; }
+  .ao-link { display:inline-block; margin-top:25px; color:#062b43; font:800 12px/1 system-ui,sans-serif; letter-spacing:.08em; text-decoration:none; text-transform:uppercase; } .ao-link span { color:#0d7594; } .ao-link--light { color:#fff; } .ao-link--light span { color:#8ed6ea; }
+  .ao-services { padding:110px 0; background:#edf6fa; } .ao-section-head { display:grid; grid-template-columns:.8fr 1.2fr; gap:50px; margin-bottom:52px; } .ao-section-head h2 { max-width:17ch; }
+  .ao-services__grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid rgba(6,43,67,.15); }
+  .ao-service { position:relative; min-height:290px; padding:26px 28px; color:inherit; text-decoration:none; border-right:1px solid rgba(6,43,67,.15); border-bottom:1px solid rgba(6,43,67,.15); transition:background .18s ease; }
+  .ao-service:nth-child(3n+1) { padding-left:0; } .ao-service:nth-child(3n) { border-right:0; } .ao-service:hover { background:rgba(255,255,255,.65); }
+  .ao-service>span { color:#0d7594; font:700 10px/1 system-ui,sans-serif; letter-spacing:.12em; } .ao-service h3 { margin:40px 0 12px; color:#062b43; font-size:24px; line-height:1.05; letter-spacing:-.045em; }
+  .ao-service p { max-width:32ch; margin:0; color:#587283; font-size:15px; line-height:1.58; } .ao-service b { position:absolute; bottom:25px; color:#062b43; font:800 10px/1 system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase; } .ao-service i { color:#0d7594; font-style:normal; }
+  .ao-specialty { padding:110px 0; background:#fff; } .ao-specialty__grid { grid-template-columns:.75fr 1.25fr; } .ao-specialty h2 { max-width:18ch; font-size:clamp(36px,4vw,58px); }
+  @media (max-width:900px) { .ao-intro__grid,.ao-platform__grid,.ao-specialty__grid,.ao-section-head { grid-template-columns:1fr; gap:30px; } .ao-services__grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .ao-service:nth-child(3n+1) { padding-left:28px; } .ao-service:nth-child(2n+1) { padding-left:0; } .ao-service:nth-child(3n) { border-right:1px solid rgba(6,43,67,.15); } .ao-service:nth-child(2n) { border-right:0; } }
+  @media (max-width:620px) { .ao-wrap { padding-inline:20px; } .ao-intro,.ao-platform,.ao-services,.ao-specialty { padding:72px 0; } .ao-services__grid,.ao-platform__systems { grid-template-columns:1fr; } .ao-service,.ao-service:nth-child(n) { min-height:240px; padding:24px 0; border-right:0; } }
+</style>

@@ -1,0 +1,56 @@
+---
+/* Steps — a numbered process/chain list (submission → underwriting → claim,
+   etc.). Vertical, rule-divided; reads better than a card grid for a
+   sequence where order matters. */
+interface Step { heading: string; body: string; href?: string }
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  items: Step[];
+}
+const { eyebrow, heading, items } = Astro.props;
+---
+<section class="eh-steps">
+  <div class="hs-elevate-content-wrapper">
+    {(eyebrow || heading) && (
+      <div class="eh-steps__head">
+        {eyebrow && <p class="hs-elevate-tag">{eyebrow}</p>}
+        {heading && <h2 class="hs-elevate-h2">{heading}</h2>}
+      </div>
+    )}
+    <ol class="eh-steps__list">
+      {items.map((s, i) => {
+        const Tag = s.href ? 'a' : 'div';
+        return (
+          <li>
+            <Tag class="eh-steps__row" href={s.href}>
+              <span class="eh-steps__n">{String(i + 1).padStart(2, '0')}</span>
+              <span class="eh-steps__h">{s.heading}</span>
+              <span class="eh-steps__body">{s.body}</span>
+            </Tag>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .eh-steps { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-steps__head { max-width: 640px; margin: 0 0 32px; }
+  .eh-steps__head h2 { margin: 8px 0 0; }
+  .eh-steps__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(9,21,43,0.1); }
+  .eh-steps__list li { border-bottom: 1px solid rgba(9,21,43,0.1); }
+  .eh-steps__row {
+    display: grid; grid-template-columns: 56px 300px 1fr; gap: 28px; align-items: baseline;
+    padding: 28px 0; color: inherit; text-decoration: none;
+  }
+  .eh-steps__n { font-size: 14px; font-weight: 600; color: var(--hsElevate--color--accent--3); }
+  .eh-steps__h { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  a.eh-steps__row:hover .eh-steps__h { color: var(--hsElevate--color--accent--3); }
+  .eh-steps__body { font-size: 15px; line-height: 1.65; color: var(--hsElevate--body__fontColor, #4a5a72); }
+
+  @media (max-width: 800px) {
+    .eh-steps__row { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+/* Contact page — Elevate theme. The form still posts to the /api/contact
+   Pages Function (functions/api/contact.js) — only the markup/styling
+   changed, the working parts (action, field names, honeypot, ?sent=1
+   success state, ?system= prefill) are untouched. */
+import ElevateBase from '../layouts/ElevateBase.astro';
+const EMAIL = 'info@aketud.com';
+const sent = Astro.url.searchParams.get('sent') === '1';
+---
+<ElevateBase title="Contact — AKETUD" description="Bring the insurance platform, CRM, cloud, AI, or delivery problem you need to solve." navActive="Contact">
+  <section class="eh-contact">
+    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--md">
+      <p class="hs-elevate-tag">Contact</p>
+      <h1 class="hs-elevate-display-2 eh-contact__h">Bring the system, workflow, or operating blocker.</h1>
+      <p class="eh-contact__p">Talk to AKETUD about Platform, AI, CRM, cloud, modernization, consulting, or quality engineering for insurance operations.</p>
+
+      {sent && (
+        <p class="eh-contact__ok" role="status">Thanks — your message is in. We reply within a business day.</p>
+      )}
+
+      <form class="eh-contact__form" method="POST" action="/api/contact" name="contact">
+        <p class="eh-contact__hp" aria-hidden="true">
+          <label>Company website<input name="company_website" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <label>Name<input name="name" required autocomplete="name" /></label>
+        <label>Work email<input type="email" name="email" required autocomplete="email" /></label>
+        <label>Which system?
+          <select name="system">
+            <option value="">General</option>
+            <option value="platform">Platform</option>
+            <option value="pas">PAS</option>
+            <option value="uw">UW</option>
+            <option value="fnol">FNOL</option>
+            <option value="atlas">Atlas</option>
+            <option value="ai-data">AI &amp; data</option>
+            <option value="crm">CRM &amp; customer operations</option>
+            <option value="cloud">Cloud &amp; modernization</option>
+            <option value="delivery">Consulting &amp; delivery</option>
+            <option value="qa">QA &amp; testing</option>
+          </select>
+        </label>
+        <label>Message<textarea name="message" rows="4"></textarea></label>
+        <button class="hs-elevate-button hs-elevate-button--primary" type="submit">Send</button>
+      </form>
+      <p class="eh-contact__alt">Or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a> directly.</p>
+    </div>
+  </section>
+</ElevateBase>
+
+<style>
+  .eh-contact { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-contact__h { margin: 14px 0 0; max-width: 18ch; }
+  .eh-contact__p { max-width: 620px; margin: 20px 0 40px; color: var(--hsElevate--body__fontColor, #4a5a72); }
+  .eh-contact__form { display: flex; flex-direction: column; gap: 18px; max-width: 520px; }
+  .eh-contact__form label {
+    display: flex; flex-direction: column; gap: 8px; font-size: 13px;
+    letter-spacing: .04em; text-transform: uppercase; font-weight: 600;
+    color: var(--hsElevate--body__fontColor, #4a5a72);
+  }
+  .eh-contact__form input, .eh-contact__form select, .eh-contact__form textarea {
+    font-family: var(--hsElevate--body__font); font-size: 16px; text-transform: none;
+    letter-spacing: normal; font-weight: 400; color: #09152B;
+    padding: 12px 14px; border: 1px solid rgba(9,21,43,0.15); border-radius: 8px; background: #fff;
+  }
+  .eh-contact__form input:focus, .eh-contact__form select:focus, .eh-contact__form textarea:focus {
+    outline: none; border-color: var(--hsElevate--color--accent--3);
+  }
+  .eh-contact__form button { align-self: flex-start; margin-top: 6px; cursor: pointer; border: 0; }
+  .eh-contact__alt { margin-top: 28px; font-size: 14px; color: var(--hsElevate--body__fontColor, #4a5a72); }
+  .eh-contact__ok {
+    max-width: 520px; margin: 0 0 28px; padding: 14px 16px; border-radius: 8px;
+    border-left: 3px solid var(--hsElevate--color--accent--3);
+    background: var(--hsElevate--color--accent--1); font-size: 14.5px; color: #09152B;
+  }
+  .eh-contact__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+</style>
+<script>
+  const s = new URLSearchParams(location.search).get('system');
+  if (s) {
+    const sel = document.querySelector('select[name="system"]') as HTMLSelectElement | null;
+    if (sel) sel.value = s;
+  }
+</script>

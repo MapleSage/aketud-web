@@ -1,0 +1,42 @@
+---
+/* Footer — artboard 01/04/05. Content from settings/site.json. */
+import { settings } from '../lib/site';
+const s = await settings();
+---
+<footer class="foot">
+  <div class="foot__brand">
+    <img class="foot__mark" src="/aketud-logo-white.png" alt={s.org} width="140" height="40" />
+    <span class="foot__loc">{s.locations}</span>
+  </div>
+
+  <nav class="foot__nav" aria-label="Footer">
+    {s.footerLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+  </nav>
+
+  <nav class="foot__social" aria-label="Social">
+    {s.social?.map((l) => <a href={l.href} target="_blank" rel="noopener">{l.label}</a>)}
+  </nav>
+
+  <span class="foot__copy">© {new Date().getFullYear()} {s.org}</span>
+</footer>
+
+<style>
+  .foot {
+    background: var(--ink); color: rgba(245, 242, 237, 0.55);
+    padding: 44px var(--gutter);
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 28px 40px; flex-wrap: wrap;
+    font-size: 13px; letter-spacing: 0.02em;
+    border-top: 1px solid var(--rule-dark);
+  }
+  .foot__brand { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .foot__mark { width: auto; height: 40px; object-fit: contain; display: block; }
+  .foot__loc { opacity: 0.8; }
+  .foot__nav, .foot__social { display: flex; gap: 22px; flex-wrap: wrap; }
+  .foot a { color: rgba(245, 242, 237, 0.55); }
+  .foot a:hover { color: var(--paper); }
+  .foot__copy { opacity: 0.7; }
+  @media (max-width: 820px) {
+    .foot { flex-direction: column; gap: 20px; }
+  }
+</style>

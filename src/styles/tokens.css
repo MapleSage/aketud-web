@@ -1,0 +1,93 @@
+/* MapleSage design system — ported from the approved artboards. Do not redesign. */
+
+@import '@fontsource-variable/bodoni-moda/opsz.css';
+@import '@fontsource-variable/bodoni-moda/opsz-italic.css';
+@import '@fontsource-variable/archivo/wght.css';
+@import '@fontsource-variable/newsreader/opsz.css';
+
+:root {
+  --paper:      #F5F2ED;   /* page ground */
+  --paper-card: #FFFDF9;   /* tile ground */
+  --paper-deep: #EDE7DE;   /* pillar band */
+  --ink:        #14100D;
+  --ink-black:  #0C0B0A;   /* nav, hero, footer */
+  --accent:     #C4531F;   /* editorial maple — headings, links, buttons */
+  --accent-lit: #E4703A;   /* accent on dark grounds only */
+  --brand:      #FA7802;   /* logo orange — the maple mark only */
+  --rule:       rgba(20, 16, 13, 0.16);
+  --rule-soft:  rgba(20, 16, 13, 0.12);
+  --rule-tile:  rgba(20, 16, 13, 0.18);
+  --rule-dark:  rgba(245, 242, 237, 0.10);
+
+  --disp:  "Bodoni Moda Variable", Didot, "Times New Roman", serif;
+  --ui:    "Archivo Variable", "Helvetica Neue", Arial, sans-serif;
+  --read:  "Newsreader Variable", Georgia, "Times New Roman", serif;
+
+  --gutter: 56px;
+  --wrap: 1440px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, video { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-lit); }
+
+.disp { font-family: var(--disp); font-weight: 400; font-optical-sizing: auto; }
+.read { font-family: var(--read); font-size: 19.5px; line-height: 1.78; color: rgba(20, 16, 13, 0.86); }
+.eyebrow {
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+  font-family: var(--ui);
+}
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding-inline: var(--gutter); }
+.section { padding-block: clamp(72px, 10vw, 130px); }
+.section--paper { background: var(--paper); }
+.section--deep  { background: var(--paper-deep); }
+.section--ink   { background: var(--ink-black); color: var(--paper); }
+.section--ink .eyebrow { color: var(--accent-lit); }
+
+.rule { height: 1px; background: var(--rule); border: 0; }
+.rule--hard { height: 1.5px; background: var(--ink); border: 0; }
+
+/* buttons */
+.btn {
+  display: inline-block; font-family: var(--ui);
+  font-size: 13.5px; font-weight: 600; letter-spacing: 0.04em;
+  padding: 15px 30px; border-radius: 2px; border: 1px solid transparent;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.btn--solid { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn--solid:hover { background: var(--accent-lit); color: #fff; border-color: var(--accent-lit); }
+.btn--ghost-dark { border-color: rgba(245, 242, 237, 0.35); color: var(--paper); }
+.btn--ghost-dark:hover { border-color: var(--paper); color: var(--paper); }
+.btn--ghost-light { border-color: var(--ink); color: var(--ink); }
+.btn--ghost-light:hover { background: var(--ink); color: var(--paper); }
+
+.chip {
+  display: inline-block; border: 1px solid var(--rule-tile);
+  padding: 6px 12px; font-size: 11.5px; letter-spacing: 0.06em; border-radius: 2px;
+  color: rgba(20, 16, 13, 0.78); font-family: var(--ui);
+}
+.section--ink .chip { border-color: rgba(245, 242, 237, 0.24); color: rgba(245, 242, 237, 0.8); }
+
+.grid12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px; }
+
+@media (max-width: 900px) {
+  :root { --gutter: 20px; }
+  .grid12 { grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

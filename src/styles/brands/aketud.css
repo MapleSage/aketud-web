@@ -1,0 +1,32 @@
+/* AKETUD brand pack — supplied A + AKETUD lockup.
+   Blue comes from the operating product itself: midnight application chrome,
+   a precise operational teal, cloud-white interfaces, and one calm signal blue.
+   It is intentionally tonal rather than a generic SaaS blue gradient. */
+
+:root {
+  --hsElevate--color--base--1: #FFFFFF;
+  --hsElevate--color--base--2: #EDF6FA;
+  --hsElevate--color--base--3: #062B43;
+  --hsElevate--color--accent--1: #DCEEF6;
+  --hsElevate--color--accent--2: #A9D7E7;
+  --hsElevate--color--accent--3: #156582;
+  --hsElevate--color--accent--3--hover: #0A4B69;
+  --hsElevate--button--primary__backgroundColor: #07314B;
+  --hsElevate--button--primary__hover--backgroundColor: #0D7594;
+  --hsElevate--button--primary__textColor: #FFFFFF;
+  --hsElevate--heading__fontWeight: 500;
+}
+
+/* Carry the same cloud/navy contrast through the original editorial
+   product pages without replacing their intentionally separate layout. */
+body { background: var(--hsElevate--color--base--2); color: var(--hsElevate--color--base--3); }
+.hs-elevate-tag { border-radius: 0; letter-spacing: .08em; }
+.hs-elevate-button { border-radius: 0; }
+
+/* The supplied lockup has a long serif wordmark. Let visual height lead while
+   keeping it quiet beside product navigation. */
+.eh__logo img { height: 31px; width: auto; }
+.eh { background: rgba(237,246,250,.96); border-bottom-color: rgba(6,43,67,.12); }
+.eh__cta { border-radius: 6px; }
+.eh--transparent.is-solid, .eh--transparent.is-open { background: rgba(237,246,250,.98); }
+@media (max-width: 640px) { .eh__logo img { height: 26px; } }

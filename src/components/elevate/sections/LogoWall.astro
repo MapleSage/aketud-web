@@ -1,0 +1,36 @@
+---
+/* Client/partner logo strip — greyscale, colours on hover. */
+interface Logo { src: string; alt: string; href?: string }
+interface Props {
+  eyebrow?: string;
+  logos: Logo[];
+}
+const { eyebrow, logos } = Astro.props;
+---
+<section class="eh-logowall">
+  <div class="hs-elevate-content-wrapper">
+    {eyebrow && <p class="hs-elevate-tag eh-logowall__eyebrow">{eyebrow}</p>}
+    <div class="eh-logowall__row">
+      {logos.map((l) => {
+        const img = <img src={l.src} alt={l.alt} loading="lazy" />;
+        return l.href ? <a href={l.href} target="_blank" rel="noopener">{img}</a> : img;
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-logowall { padding-block: var(--hsElevate--section--small__verticalPadding); }
+  .eh-logowall__eyebrow { display: block; text-align: center; margin: 0 auto 32px; width: fit-content; }
+  .eh-logowall__row {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: 48px;
+  }
+  .eh-logowall__row img {
+    height: 32px; width: auto; display: block;
+    filter: grayscale(1) opacity(0.55);
+    transition: filter .2s;
+  }
+  .eh-logowall__row a:hover img,
+  .eh-logowall__row img:hover { filter: grayscale(0) opacity(1); }
+</style>

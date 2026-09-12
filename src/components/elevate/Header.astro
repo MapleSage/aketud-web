@@ -1,0 +1,266 @@
+---
+/* Elevate site header — logo · mega-menu · CTA.
+   Clean rebuild of the Elevate React header (the live one uses hashed CSS-module
+   classes not worth reproducing). Reads the `menu` tree from settings/site.json.
+   Desktop: hover/focus dropdown panels. Mobile: hamburger + nested accordion. */
+import { settings } from '../../lib/site';
+const s = await settings();
+const menu = s.menu ?? [];
+const cta = s.navCta;
+
+interface Props {
+  active?: string;
+  /** Overlay a dark hero: header starts transparent (white logo + links),
+      solidifies to white on scroll. */
+  transparent?: boolean;
+}
+const { active = '', transparent = false } = Astro.props;
+
+const hasPanel = (i: any) => Array.isArray(i.children) && i.children.length > 0;
+// a "grouped" panel = children that themselves have children (Services → Insurers → …)
+const isGrouped = (i: any) => hasPanel(i) && i.children.some((c: any) => c.children?.length);
+---
+<header class:list={['eh', { 'eh--transparent': transparent, 'eh--clear': transparent }]} data-eh data-transparent={transparent ? '' : undefined}>
+  <div class="eh__inner">
+    <a class="eh__logo" href="/" aria-label={`${s.org} — home`}>
+      <img class="eh__logo-color" src={s.logo} alt={s.org} width="204" height="40" />
+      {transparent && <img class="eh__logo-white" src={s.logoWhite} alt="" aria-hidden="true" width="204" height="40" />}
+    </a>
+
+    <button class="eh__burger" aria-label="Menu" aria-expanded="false" data-eh-burger>
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="eh__nav" aria-label="Primary" data-eh-nav>
+      <ul class="eh__menu">
+        {menu.map((item) => (
+          <li class:list={['eh__item', { 'has-panel': hasPanel(item) }]}>
+            {item.href && !hasPanel(item) ? (
+              <a class:list={['eh__link', { 'is-active': active === item.label }]} href={item.href}>{item.label}</a>
+            ) : (
+              <>
+                <button class="eh__link eh__toggle" aria-expanded="false" data-eh-toggle>
+                  {item.label}
+                  {hasPanel(item) && <svg class="eh__caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>}
+                </button>
+                {hasPanel(item) && (
+                  <div class:list={['eh__panel', { 'eh__panel--grouped': isGrouped(item) }]}>
+                    {isGrouped(item)
+                      ? item.children.map((grp: any) => (
+                          <div class="eh__group">
+                            {grp.href
+                              ? <a class="eh__group-h" href={grp.href}>{grp.label}</a>
+                              : <span class="eh__group-h">{grp.label}</span>}
+                            <ul>
+                              {(grp.children ?? []).map((c: any) => (
+                                <li><a href={c.href}>{c.label}</a></li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))
+                      : (
+                        <ul class="eh__panel-list">
+                          {item.children.map((c: any) => (
+                            <li><a href={c.href}>{c.label}</a></li>
+                          ))}
+                        </ul>
+                      )}
+                  </div>
+                )}
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+      {cta && <a class="eh__cta" href={cta.href}>{cta.label}</a>}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .eh {
+    position: sticky; top: 0; z-index: 100;
+    /* Off-white, not pure white — reads better against the page's own
+       off-white sections and avoids a hard white-on-white seam. */
+    background: var(--hsElevate--color--base--2, #F7F9FC);
+    border-bottom: 1px solid rgba(9, 21, 43, 0.08);
+    font-family: var(--hsElevate--body__font, system-ui, sans-serif);
+    transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .eh.is-scrolled { box-shadow: 0 6px 24px rgba(9, 21, 43, 0.07); }
+  .eh__inner {
+    /* No extra inner padding beyond the max-width centering itself — the
+       real header measures 72px of gutter at 1440px purely from a 1296px
+       box centered in the viewport; an added inner padding on top of that
+       (this used to be 32px) squeezed the nav noticeably narrower than the
+       real one, which is most of why it read as "smaller/left-clumped." */
+    max-width: var(--hsElevate--contentWrapper--wide__maxWidth, 1296px);
+    margin: 0 auto; padding: 0 16px;
+    height: 76px; display: flex; align-items: center; gap: 40px;
+  }
+  .eh__logo { flex-shrink: 0; display: flex; align-items: center; position: relative; }
+  .eh__logo img { width:204px; height:40px; object-fit:contain; object-position:left center; display:block; transition:opacity .25s ease; }
+  .eh__logo-white { position: absolute; inset: 0; opacity: 0; }
+
+  /* ---- transparent variant: overlay a dark hero, solidify on scroll ---- */
+  .eh--transparent {
+    position: fixed; left: 0; right: 0; top: 0;
+    background: transparent; border-bottom-color: transparent;
+  }
+  .eh--clear .eh__link,
+  .eh--clear .eh__toggle { color: #fff; }
+  .eh--clear .eh__link:hover,
+  .eh--clear .eh__item:hover .eh__toggle,
+  .eh--clear .eh__item:focus-within .eh__toggle { color: rgba(255,255,255,0.7); }
+  .eh--clear .eh__link.is-active { color: #fff; }
+  .eh--clear .eh__logo-color { opacity: 0; }
+  .eh--clear .eh__logo-white { opacity: 1; }
+  .eh--clear .eh__cta {
+    background: transparent; border-color: rgba(255,255,255,0.8); color: #fff;
+  }
+  .eh--clear .eh__cta:hover { background: rgba(255,255,255,0.14); }
+  .eh--clear .eh__burger span { background: #fff; }
+  .eh--transparent.is-solid,
+  .eh--transparent.is-open { background: var(--hsElevate--color--base--2, #F7F9FC); border-bottom-color: rgba(9,21,43,0.08); }
+
+  .eh__nav { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .eh__menu { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 28px; }
+  .eh__item { position: relative; }
+
+  .eh__link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: inherit; font-size: 18px; font-weight: 500; line-height: 1;
+    color: #09152B; background: none; border: 0; cursor: pointer;
+    padding: 12px 4px; border-radius: 6px; text-decoration: none;
+  }
+  .eh__link:hover, .eh__item:hover .eh__toggle,
+  .eh__item:focus-within .eh__toggle { color: var(--hsElevate--color--accent--3); }
+  .eh__link.is-active { color: var(--hsElevate--color--accent--3); }
+  .eh__caret { transition: transform .15s; }
+  .eh__item:hover .eh__caret, .eh__item:focus-within .eh__caret { transform: rotate(180deg); }
+
+  /* dropdown panels */
+  .eh__panel {
+    position: absolute; top: calc(100% + 6px); left: 0;
+    min-width: 240px; background: #fff;
+    border: 1px solid rgba(9, 21, 43, 0.1); border-radius: 10px;
+    box-shadow: 0 20px 50px rgba(9, 21, 43, 0.14);
+    padding: 10px; opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: opacity .15s, transform .15s, visibility .15s;
+  }
+  .eh__item:hover .eh__panel, .eh__item:focus-within .eh__panel {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  .eh__panel--grouped { display: flex; gap: 8px; min-width: 520px; padding: 18px; }
+  .eh__panel ul { list-style: none; margin: 0; padding: 0; }
+  .eh__panel a, .eh__group-h {
+    display: block; padding: 9px 12px; border-radius: 6px;
+    font-size: 14px; color: #3a4a63; text-decoration: none; white-space: nowrap;
+  }
+  .eh__panel a:hover { background: var(--hsElevate--color--accent--1, #FCEEE3); color: var(--hsElevate--color--accent--3); }
+  .eh__group { flex: 1; }
+  .eh__group-h { font-weight: 600; color: #09152B; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+  a.eh__group-h:hover { color: var(--hsElevate--color--accent--3); }
+
+  .eh__cta {
+    flex-shrink: 0; display: inline-flex; align-items: center;
+    /* The real header's CTA is the dark navy primary-button colour
+       (#0D2B3D), not the indigo accent — this was pulling the wrong
+       token and rendering as a purple pill instead of navy. */
+    background: var(--hsElevate--button--primary__backgroundColor, #0D2B3D); color: #fff;
+    font-size: 16px; font-weight: 600; text-decoration: none;
+    padding: 12px 22px; border-radius: 999px; border: 1.5px solid transparent;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .eh__cta:hover { background: var(--hsElevate--button--primary__hover--backgroundColor, #A8CF45); }
+
+  .eh__burger {
+    display: none; margin-left: auto; width: 42px; height: 42px;
+    background: none; border: 0; cursor: pointer; position: relative;
+  }
+  .eh__burger span {
+    position: absolute; left: 9px; width: 24px; height: 2px; background: #09152B;
+    transition: transform .2s, opacity .2s;
+  }
+  .eh__burger span:nth-child(1) { top: 14px; }
+  .eh__burger span:nth-child(2) { top: 20px; }
+  .eh__burger span:nth-child(3) { top: 26px; }
+  .eh.is-open .eh__burger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .eh.is-open .eh__burger span:nth-child(2) { opacity: 0; }
+  .eh.is-open .eh__burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  @media (max-width: 1040px) {
+    .eh__logo img { width:178px; height:35px; }
+    .eh__burger { display: block; }
+    .eh__nav {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: #fff; border-bottom: 1px solid rgba(9, 21, 43, 0.1);
+      padding: 8px 12px 20px; max-height: calc(100vh - 76px); overflow-y: auto;
+      display: none;
+    }
+    .eh.is-open .eh__nav { display: flex; }
+    .eh__menu { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+    .eh__item { border-bottom: 1px solid rgba(9, 21, 43, 0.06); }
+    .eh__link { width: 100%; justify-content: space-between; padding: 15px 10px; font-size: 16px; }
+    .eh__panel {
+      position: static; opacity: 1; visibility: visible; transform: none;
+      box-shadow: none; border: 0; border-radius: 0; padding: 0 0 8px 14px;
+      min-width: 0; display: none;
+    }
+    .eh__item.is-expanded .eh__panel { display: block; }
+    .eh__panel--grouped { flex-direction: column; min-width: 0; padding: 0 0 8px 14px; gap: 4px; }
+    .eh__item:hover .eh__caret, .eh__item:focus-within .eh__caret { transform: none; }
+    .eh__item.is-expanded .eh__caret { transform: rotate(180deg); }
+    .eh__cta { margin: 16px 10px 0; justify-content: center; padding: 14px; }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-eh]');
+  const burger = document.querySelector<HTMLButtonElement>('[data-eh-burger]');
+
+  burger?.addEventListener('click', () => {
+    const open = header!.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (header!.hasAttribute('data-transparent') && !header!.classList.contains('is-solid')) {
+      header!.classList.toggle('eh--clear', !open);
+    }
+  });
+
+  // mobile: tap a toggle to expand its panel
+  document.querySelectorAll<HTMLButtonElement>('[data-eh-toggle]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      if (window.innerWidth > 1040) return;      // desktop uses hover
+      e.preventDefault();
+      const li = btn.closest('.eh__item')!;
+      const expanded = li.classList.toggle('is-expanded');
+      btn.setAttribute('aria-expanded', String(expanded));
+    });
+  });
+
+  // shadow after scroll; transparent header solidifies past a small threshold
+  const isTransparent = header?.hasAttribute('data-transparent');
+  const SOLID_AT = 80;
+  const onScroll = () => {
+    const scrolled = window.scrollY > 8;
+    header?.classList.toggle('is-scrolled', scrolled);
+    if (isTransparent) {
+      const solid = window.scrollY > SOLID_AT;
+      header!.classList.toggle('is-solid', solid);
+      header!.classList.toggle('eh--clear', !solid && !header!.classList.contains('is-open'));
+    }
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // close mobile menu on resize up to desktop
+  addEventListener('resize', () => {
+    if (window.innerWidth > 1040 && header?.classList.contains('is-open')) {
+      header.classList.remove('is-open');
+      burger?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+</script>

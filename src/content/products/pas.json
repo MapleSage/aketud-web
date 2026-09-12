@@ -1,0 +1,42 @@
+{
+  "order": 2,
+  "slug": "pas",
+  "no": "02",
+  "name": "PAS",
+  "eyebrow": "02 — Policy Administration",
+  "domain": "pas.aketud.com",
+  "sector": "Insurance",
+  "dark": false,
+  "lead": "Real-time rating, binding, payment and policy issuance in a single appointed-agent workflow, on a shared policy record.",
+  "architecture": [
+    "PAS is the quote-to-issue path of the platform, run as its own workflow for appointed agents. Rating, binding, payment capture and document issuance happen in one pass — no re-keying between a rater, a policy system and a billing system.",
+    "Rates are versioned and effective-dated. A quote run today against a March rate table can be reproduced in November against the same table, because the table it used is part of the record.",
+    "Issuance produces the policy documents and posts the premium to the accounting ledger in the same transaction. There is no state where a policy is issued but unbilled."
+  ],
+  "stack": [
+    "Rust",
+    "React",
+    "TypeScript",
+    "PostgreSQL",
+    "Azure AKS",
+    "Swift"
+  ],
+  "screens": [
+    {
+      "src": "/uploads/MapleSage-Pas.webP",
+      "alt": "PAS — new business quote",
+      "caption": "Quote — real-time rating against an effective-dated rate table"
+    },
+    {
+      "src": "/uploads/MapleSage_PAS_01.webP",
+      "alt": "PAS — bind and payment",
+      "caption": "Bind, capture payment and issue in one workflow"
+    },
+    {
+      "src": "/uploads/Maplesage_Pas_02.webP",
+      "alt": "PAS — issued policy documents",
+      "caption": "Issuance posts premium to the ledger in the same transaction"
+    }
+  ],
+  "heroVideo": "pas"
+}

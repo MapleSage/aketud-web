@@ -1,0 +1,17 @@
+{
+  "metaTitle": "Digital Insurance Operations — AKETUD",
+  "metaDescription": "Platform, mobile, and customer-journey systems that bring insurers' digital operations up to the standard their customers expect.",
+  "eyebrow": "Insurance · Digital",
+  "title": "Digital Insurance Operations",
+  "intro": "Platform, mobile, and customer-journey systems that bring an insurer's digital operations up to the standard their customers already expect elsewhere.",
+  "steps": [
+    { "heading": "Platform Solutions", "body": "Integration and transformation work that drives efficiency in policy administration and claims management, rather than sitting alongside it." },
+    { "heading": "Advanced Mobile Apps", "body": "Field and customer-facing applications built for insurance workflows — inspection, intake, and claim status in the field, not just in the office." },
+    { "heading": "Enhanced Customer Journeys", "body": "Personalized, efficient digital experiences backed by intuitive interfaces and the analytics to see where a journey is actually working." }
+  ],
+  "cta": {
+    "eyebrow": "See it running",
+    "line": "Talk to us about the systems behind your digital front door.",
+    "button": { "label": "Book a call", "href": "/contact" }
+  }
+}

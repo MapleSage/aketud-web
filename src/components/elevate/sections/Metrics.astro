@@ -1,0 +1,47 @@
+---
+/* Stat / metrics row — N number+label pairs. */
+interface Stat { value: string; label: string }
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  stats: Stat[];
+  dark?: boolean;
+}
+const { eyebrow, heading, stats, dark = false } = Astro.props;
+---
+<section class:list={['eh-metrics', { 'eh-metrics--dark': dark }]}>
+  <div class="hs-elevate-content-wrapper eh-metrics__inner">
+    {(eyebrow || heading) && (
+      <div class="eh-metrics__head">
+        {eyebrow && <p class="hs-elevate-tag">{eyebrow}</p>}
+        {heading && <h2 class="hs-elevate-h2">{heading}</h2>}
+      </div>
+    )}
+    <div class="eh-metrics__row">
+      {stats.map((s) => (
+        <div class="eh-metrics__stat">
+          <p class="hs-elevate-display-2 eh-metrics__value">{s.value}</p>
+          <p class="eh-metrics__label">{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-metrics { padding-block: var(--hsElevate--section--medium__verticalPadding); background: var(--hsElevate--color--base--2); }
+  .eh-metrics--dark { background: var(--hsElevate--color--base--3); color: var(--hsElevate--color--base--1); }
+  .eh-metrics__head { max-width: 640px; margin: 0 0 48px; }
+  .eh-metrics__head h2 { margin: 8px 0 0; }
+  .eh-metrics__row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 32px;
+  }
+  .eh-metrics__stat { border-left: 2px solid var(--hsElevate--color--accent--3); padding-left: 18px; }
+  .eh-metrics__value { margin: 0 0 6px; }
+  .eh-metrics__label {
+    margin: 0; font-size: 14px; letter-spacing: .01em;
+    color: var(--hsElevate--body__fontColor, #4a5a72);
+  }
+  .eh-metrics--dark .eh-metrics__label { color: rgba(255,255,255,0.72); }
+</style>

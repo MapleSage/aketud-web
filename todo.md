@@ -1,0 +1,58 @@
+# AKETUD blue identity update
+
+- [x] Replace the earlier two-reversal assets with the supplied A + AKETUD lockup across shared site chrome.
+- [x] Create a matching transparent A favicon and a separate app-icon tile from the supplied identity.
+- [x] Apply a tonal blue insurance-platform palette to shared theme tokens, navigation, cards, and call-to-action states.
+- [x] Recompose the homepage hero around the supplied mark and a platform-led visual field.
+- [x] Verify the homepage, a service route, and a product route at desktop and mobile sizes.
+- [ ] Build the Astro site and package the updated local revision without pushing to GitHub.
+- [ ] Replace the downscaled header image with the supplied high-resolution AKETUD lockup without clipping the D or distorting the wordmark.
+- [ ] Install the supplied A favicon as a browser-safe asset and validate it in the document head.
+- [ ] Remove the redundant AKETUD navigation group and move its service pages under Home.
+- [ ] Create a comprehensive Insurance overview page that presents the complete insurance offering while preserving Platform as a product route.
+- [ ] Add an AKETUD insights/blog route and a complete contact-form experience.
+- [ ] Verify the revised route set, desktop/mobile hierarchy, and production build before committing locally.
+- [ ] Audit all public and product routes for duplicate sections, thin content, weak imagery, and missing proof.
+- [ ] Build an image plan using real platform screenshots, supplied assets, and curated operational photography for every key route.
+- [ ] Replace template-like service openings with page-specific insurance narratives, systems, outcomes, and supporting visual modules.
+- [ ] Complete the Insurance overview, blog/insights listing, and contact form as real information architecture rather than placeholder links.
+- [ ] Validate every page at desktop and mobile widths, then build and commit the substantive site revision locally.
+- [ ] Remove the internal app-screen imagery introduced into the public homepage and service-page treatments.
+- [ ] Identify and reuse only public-facing visual treatments and imagery from the current reference site.
+- [ ] Restore the homepage and service pages to a controlled public brand presentation before any further content or layout work.
+- [x] Removed the mistakenly introduced internal app-screen imagery from the homepage and shared service-story treatment.
+- [x] Replaced those public-facing surfaces with imagery from the current reference site and verified the homepage and Digital route.
+- [ ] Inventory the attached insurance video and every other available video asset.
+- [ ] Analyze each video’s subject matter, visible branding, audio, and viable public-site placement.
+- [ ] Record a factual video-use recommendation before adding any footage to the site.
+- [x] Inventoried available video files: only `insurance.mp4` is present.
+- [x] Analyzed `insurance.mp4`; it is a silent public MapleSage page recording containing legacy branding and a capture-bar overlay.
+- [ ] Inspect the current MapleSage insurance page and map its useful public information architecture.
+- [ ] Create an AKETUD insurance-page blueprint that distinguishes transferable structure from legacy branding and unsupported claims.
+- [ ] Obtain approval of the page blueprint before modifying any implementation source file.
+- [ ] Revise the main-site blueprint: AKETUD is the full insurance-services replacement for SageSure, while MapleSage moves to AFL.
+- [ ] Position Platform as the product center alongside CRM, cloud, modernization, AI, consulting, and insurance delivery services.
+- [ ] Obtain approval of the corrected multi-offering information architecture before touching implementation source files.
+- [ ] Use “AI You Can Accept” for AKETUD; reserve “AI You Can Be Sure” for SageInsure/SageSure AI.
+- [ ] Replace the current footer surface with a deeper tonal teal derived from the navy system and verify readable footer contrast.
+- [x] Updated the shared footer to a darker tonal teal and verified logo, links, and legal-row contrast on the homepage.
+- [ ] Review the live Platform page for AKETUD logo, “AI You Can Accept” tagline, and tonal-teal footer consistency before making any changes.
+- [x] Reviewed Platform branding: logo and tonal-teal footer are integrated; the tagline is not yet present on the product page.
+- [ ] Restore and verify the temporary local Astro preview URL without changing repository source files.
+- [ ] Finalize a stable temporary preview URL and verify the root route before site completion.
+- [ ] Complete the AKETUD homepage around Platform, AI, CRM, cloud, modernization, consulting, ADM, and QA for insurance customers.
+- [ ] Make Home, Platform, Services, Insights, and Contact a coherent working navigation system.
+- [ ] Add a real Insights listing and complete Contact conversion path without fabricated social proof.
+- [ ] Verify the full route set, desktop/mobile layouts, and production build before one final review link is delivered.
+- [x] Completed and verified the new Home, Platform, Services, Insights, and Contact hierarchy at desktop width.
+- [x] Verified homepage and Platform mobile hierarchy at 375px, including the full logo, brand line, calls to action, and mobile menu trigger.
+- [ ] Treat app.aketud.com as the flagship Insurance Command Center for agents, brokers, MGAs, and agency operations.
+- [ ] Treat pas.aketud.com, fnol.aketud.com, uw.aketud.com, atlas.aketud.com, and social.aketud.com as distinct external product-system destinations.
+- [ ] Update main-site product architecture only after confirming the final public labels and destination behavior.
+- [ ] Inspect the current app.aketud.com landing context and map the dedicated Insurance Command Center page.
+- [ ] Build a product-first app landing page for agents, brokers, MGAs, and agency operations using “AI You Can Accept.”
+- [ ] Carry the supplied AKETUD lockup and darker tonal-teal footer into the app landing experience.
+- [ ] Verify the app landing page at desktop and mobile widths before delivery.
+- [x] Built the local `/app/` Insurance Command Center landing page with the AKETUD lockup, “AI You Can Accept,” product-console treatment, and tonal-teal footer.
+- [x] Mapped the Products menu and command-center system links to app.aketud.com, pas.aketud.com, uw.aketud.com, fnol.aketud.com, atlas.aketud.com, and social.aketud.com.
+- [x] Verified the landing page at desktop and 375px mobile widths; production build succeeds with 20 static routes.

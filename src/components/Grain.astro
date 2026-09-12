@@ -1,0 +1,31 @@
+---
+/* Grain + hairline 12-col grid overlay for dark fields. Per the brief these
+   layers are "what stops footage reading as stock" — keep them on top of media. */
+interface Props { grid?: boolean }
+const { grid = true } = Astro.props;
+---
+<div class="grain" aria-hidden="true"></div>
+<div class="scanline" aria-hidden="true"></div>
+{grid && (
+  <div class="gridlines" aria-hidden="true">
+    {Array.from({ length: 12 }).map(() => <span></span>)}
+  </div>
+)}
+
+<style>
+  .grain, .scanline, .gridlines { position: absolute; inset: 0; pointer-events: none; }
+  .grain {
+    opacity: 0.30; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+  }
+  .scanline {
+    background-image: linear-gradient(rgba(245,242,237,0.055) 1px, transparent 1px);
+    background-size: 100% 4px;
+  }
+  .gridlines {
+    left: var(--gutter); right: var(--gutter);
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .gridlines span { border-left: 1px solid rgba(245,242,237,0.055); }
+  .gridlines span:last-child { border-right: 1px solid rgba(245,242,237,0.055); }
+</style>

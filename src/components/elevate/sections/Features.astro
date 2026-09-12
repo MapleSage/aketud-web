@@ -1,0 +1,110 @@
+---
+/* Feature / capability grid — icon + heading + body, 2-4 columns. Uses the
+   theme's existing card variant-1 surface. `icon` is a name from
+   src/lib/icons.ts (real Font Awesome glyphs, same convention as
+   FeatureList.astro), rendered as an inline <svg> — not an emoji/raw-string
+   prop, since Astro escapes plain text expressions.
+   Optional `bullets` + `stat` + `linkText` turn a card into a small service
+   block (checklist + a highlighted outcome line + an explicit CTA label)
+   without changing anything for the many simple heading+body callers. */
+import { ICONS } from '../../../lib/icons';
+
+interface Feature {
+  icon?: string;
+  heading: string;
+  body: string;
+  href?: string;
+  bullets?: string[];
+  stat?: string;
+  linkText?: string;
+}
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  sub?: string;
+  items: Feature[];
+  columns?: 2 | 3 | 4;
+}
+const { eyebrow, heading, sub, items, columns = 3 } = Astro.props;
+---
+<section class="eh-features">
+  <div class="hs-elevate-content-wrapper">
+    {(eyebrow || heading || sub) && (
+      <div class="eh-features__head">
+        {eyebrow && <p class="hs-elevate-tag">{eyebrow}</p>}
+        {heading && <h2 class="hs-elevate-h2">{heading}</h2>}
+        {sub && <p class="eh-features__sub">{sub}</p>}
+      </div>
+    )}
+    <div class="eh-features__grid" style={`--cols: ${columns}`}>
+      {items.map((f) => {
+        const Tag = f.href ? 'a' : 'div';
+        const icon = f.icon ? ICONS[f.icon] : undefined;
+        return (
+          <Tag class="hs-elevate-card--variant-1 eh-features__card" href={f.href}>
+            {icon && (
+              <svg class="eh-features__icon" viewBox={icon.viewBox} aria-hidden="true">
+                <path d={icon.path} fill="currentColor" />
+              </svg>
+            )}
+            <h3 class="hs-elevate-h4">{f.heading}</h3>
+            <p>{f.body}</p>
+            {f.bullets && f.bullets.length > 0 && (
+              <ul class="eh-features__bullets">
+                {f.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+            )}
+            {f.stat && <p class="eh-features__stat">{f.stat}</p>}
+            {f.linkText && <span class="eh-features__link">{f.linkText} <span aria-hidden="true">→</span></span>}
+          </Tag>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .eh-features { padding-block: var(--hsElevate--section--medium__verticalPadding); }
+  .eh-features__head { max-width: 640px; margin: 0 0 48px; }
+  .eh-features__head h2 { margin: 8px 0 12px; }
+  .eh-features__sub { color: var(--hsElevate--body__fontColor, #4a5a72); font-size: 17px; }
+  .eh-features__grid {
+    display: grid; grid-template-columns: repeat(var(--cols, 3), 1fr); gap: 24px;
+  }
+  .eh-features__card {
+    display: block; padding: 32px; text-decoration: none; color: inherit;
+    transition: transform .15s, box-shadow .15s;
+  }
+  a.eh-features__card:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(9,21,43,0.08); }
+  .eh-features__icon {
+    display: block; width: 32px; height: 32px; margin-bottom: 18px;
+    color: var(--hsElevate--color--accent--3);
+  }
+  .eh-features__card h3 { margin: 0 0 10px; }
+  .eh-features__card p { margin: 0; color: var(--hsElevate--body__fontColor, #4a5a72); }
+
+  .eh-features__bullets {
+    list-style: none; margin: 18px 0 0; padding: 0;
+    display: grid; gap: 8px;
+  }
+  .eh-features__bullets li {
+    position: relative; padding-left: 20px; font-size: 14.5px; line-height: 1.5;
+    color: var(--hsElevate--body__fontColor, #4a5a72);
+  }
+  .eh-features__bullets li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--hsElevate--color--accent--3);
+  }
+  .eh-features__stat {
+    margin: 18px 0 0 !important; font-weight: 600; color: var(--hsElevate--color--base--3);
+  }
+  .eh-features__link {
+    display: inline-block; margin-top: 14px; font-weight: 600;
+    color: var(--hsElevate--color--accent--3);
+  }
+  a.eh-features__card:hover .eh-features__link { color: var(--hsElevate--color--accent--3--hover); }
+
+  @media (max-width: 900px) { .eh-features__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .eh-features__grid { grid-template-columns: 1fr; } }
+</style>

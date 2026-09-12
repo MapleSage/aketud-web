@@ -1,0 +1,83 @@
+---
+/* Numbered blog pagination — shared by /insights/, /insights/page/<n>/, and
+   every /insights/topic/<slug>/(page/<n>/) route, so all three paginate the
+   same way (à la HubSpot's blog listing: numbered pages + prev/next, not
+   an infinite "Load more"). `hrefFor(n)` lets each call site build its own
+   URL shape (the base archive uses /insights/page/<n>/, a topic page uses
+   /insights/topic/<slug>/page/<n>/, etc.) without this component knowing
+   about routing. */
+interface Props {
+  currentPage: number;
+  lastPage: number;
+  hrefFor: (page: number) => string;
+}
+const { currentPage, lastPage, hrefFor } = Astro.props;
+
+function pageList(current: number, last: number): (number | '…')[] {
+  if (last <= 7) return Array.from({ length: last }, (_, i) => i + 1);
+  const keep = new Set([1, 2, last - 1, last, current - 1, current, current + 1]);
+  const sorted = [...keep].filter((p) => p >= 1 && p <= last).sort((a, b) => a - b);
+  const out: (number | '…')[] = [];
+  let prev = 0;
+  for (const p of sorted) {
+    if (prev && p - prev > 1) out.push('…');
+    out.push(p);
+    prev = p;
+  }
+  return out;
+}
+const items = pageList(currentPage, lastPage);
+---
+{lastPage > 1 && (
+  <nav class="pgr wrap" aria-label="Pagination">
+    {currentPage > 1
+      ? <a class="pgr__side" href={hrefFor(currentPage - 1)}>← Newer</a>
+      : <span class="pgr__side is-disabled">← Newer</span>}
+
+    <div class="pgr__nums">
+      {items.map((it) =>
+        it === '…'
+          ? <span class="pgr__ellipsis">…</span>
+          : (
+            <a
+              class:list={['pgr__num', { 'is-active': it === currentPage }]}
+              href={hrefFor(it)}
+              aria-current={it === currentPage ? 'page' : undefined}
+            >{it}</a>
+          )
+      )}
+    </div>
+
+    {currentPage < lastPage
+      ? <a class="pgr__side" href={hrefFor(currentPage + 1)}>Older →</a>
+      : <span class="pgr__side is-disabled">Older →</span>}
+  </nav>
+)}
+
+<style>
+  .pgr {
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    padding: 20px var(--gutter) 110px; flex-wrap: wrap;
+  }
+  .pgr__side {
+    font-family: var(--ui); font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--ink); white-space: nowrap;
+  }
+  .pgr__side.is-disabled { color: rgba(20, 16, 13, 0.3); pointer-events: none; }
+  .pgr__side:not(.is-disabled):hover { color: var(--accent); }
+
+  .pgr__nums { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .pgr__num {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 34px; height: 34px; padding: 0 6px;
+    font-family: var(--ui); font-size: 13px; font-weight: 600;
+    border: 1px solid var(--rule-tile, var(--rule)); border-radius: 2px; color: var(--ink);
+  }
+  .pgr__num:hover { border-color: var(--ink); }
+  .pgr__num.is-active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .pgr__ellipsis { padding: 0 4px; color: rgba(20, 16, 13, 0.45); font-size: 13px; }
+
+  @media (max-width: 640px) {
+    .pgr { justify-content: center; text-align: center; }
+  }
+</style>

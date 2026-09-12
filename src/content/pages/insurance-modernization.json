@@ -1,0 +1,24 @@
+{
+  "metaTitle": "Legacy Modernization with AI — AKETUD",
+  "metaDescription": "Unify CRM, claims, and core systems — modernized with intelligent automation and real-time insight.",
+  "eyebrow": "Insurance · Legacy Modernization",
+  "title": "Transform Legacy Systems with AI",
+  "intro": "Unify CRM, claims, and core systems seamlessly, and drive sustainable growth with real-time insight instead of quarter-end reports.",
+  "steps": [
+    { "heading": "Unified CRM Modernization", "body": "CRM modernization that streamlines operations instead of adding a new system for the team to reconcile against the old one." },
+    { "heading": "Automated Claims Processing", "body": "Advanced AI applied to claims processing — faster resolution with the evidence trail intact." },
+    { "heading": "Core System Overhaul", "body": "Core system modernization for enhanced efficiency, done as a migration with continuity, not a rebuild from zero." },
+    { "heading": "Cloud Integration", "body": "A robust digital strategy backed by cloud integration built for insurance-grade uptime and compliance." },
+    { "heading": "Intelligent Insights", "body": "Real-time insight that drives data-driven decisions instead of waiting on the next reporting cycle." }
+  ],
+  "stats": [
+    { "value": "40%", "label": "Reduction in claims resolution time" },
+    { "value": "30%", "label": "Faster onboarding & policy setup" },
+    { "value": "7.6x", "label": "ROI on modernization investment" }
+  ],
+  "cta": {
+    "eyebrow": "See it running",
+    "line": "A legacy system that cannot be modernized in place is a legacy system you're stuck with.",
+    "button": { "label": "Book a call", "href": "/contact" }
+  }
+}

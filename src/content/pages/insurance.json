@@ -1,0 +1,46 @@
+{
+  "metaTitle": "Insurance Operations — AKETUD",
+  "metaDescription": "AI-native insurance operations for intake, document intelligence, underwriting, rating, policy issuance, premium accounting, and claims.",
+  "eyebrow": "What we build",
+  "title": "Insurance Operations",
+  "intro": "Systems for underwriting, rating, policy issuance, accounting, and claims — built for real operation.",
+  "sections": [
+    {
+      "eyebrow": "The operations chain",
+      "heading": "From submission to claim.",
+      "body": [
+        "AKETUD builds the systems behind insurance operations: intake, underwriting, rating, policy issuance, accounting, and claims. With evidence, controls, and workflow continuity built in."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "heading": "Intake & Document Intelligence",
+      "body": "Turn photos, scans, PDFs, and other submissions into structured insurance data, with each extracted value linked back to its source evidence."
+    },
+    {
+      "heading": "Underwriting workbench",
+      "body": "Move from submitted risk to underwriting decision through six inspectable stages. Each stage can be reviewed, understood, and stopped without losing the context of the decision."
+    },
+    {
+      "heading": "Rating & Policy Issuance",
+      "body": "Calculate premiums against effective-dated rating tables, then move through bind, payment, and policy document issuance as one connected workflow."
+    },
+    {
+      "heading": "Premium Accounting",
+      "body": "Connect written business to premium accounting, giving finance and operations a consistent view of what was bound, billed, collected, and outstanding."
+    },
+    {
+      "heading": "Claims Triage",
+      "body": "Validate the first notice of loss, assemble the relevant evidence, and route the claim into the next operational workflow before an adjuster begins the file."
+    }
+  ],
+  "cta": {
+    "eyebrow": "See it running",
+    "line": "A system that cannot reconcile is not a system.",
+    "button": {
+      "label": "Book a call",
+      "href": "/contact"
+    }
+  }
+}
