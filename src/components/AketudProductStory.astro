@@ -1,0 +1,146 @@
+---
+/* Product detail pages (Platform, PAS, UW, FNOL, Atlas) — rebuilt to match
+   AketudServiceStory's visual system (same hero/section rhythm, same navy
+   #062b43 / teal #0d7594 / light-blue #edf6fa palette) so a visitor moving
+   from a Services page to a Product page doesn't land on a different site.
+   Replaces the old dark-editorial Base.astro template these pages used
+   before — the real content (architecture paragraphs, tech stack, product
+   screenshots) is unchanged, only the presentation. */
+import ElevateBase from '../layouts/ElevateBase.astro';
+import CtaBand from './elevate/sections/CtaBand.astro';
+
+interface Screen { src?: string; alt: string; caption: string }
+interface Product {
+  slug: string; no: string; name: string; eyebrow: string; domain: string;
+  sector: string; lead: string; architecture: string[]; stack: string[];
+  screens: Screen[];
+}
+interface Props { p: Product }
+const { p } = Astro.props;
+
+const title = `${p.name} — ${p.eyebrow.split('— ')[1] ?? p.eyebrow} · AKETUD`;
+const walkthrough = `/contact?system=${p.slug}`;
+const [firstShot, ...restShots] = p.screens ?? [];
+---
+
+<ElevateBase title={title} description={p.lead} navActive="Home">
+  <section class="product-hero">
+    <div class="product-hero__inner hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+      <div class="product-hero__copy">
+        <p class="product-hero__index">{p.no} / AKETUD PRODUCT</p>
+        <p class="hs-elevate-tag">{p.sector} · {p.domain}</p>
+        <h1>{p.name}</h1>
+        <p class="product-hero__intro">{p.lead}</p>
+        <div class="product-hero__actions">
+          <a class="hs-elevate-button hs-elevate-button--primary" href={walkthrough}>Request a live walkthrough</a>
+          <a class="product-hero__text-link" href="#the-product">See the product <span>↘</span></a>
+        </div>
+      </div>
+      {firstShot?.src && (
+        <figure class="product-hero__visual">
+          <img src={firstShot.src} alt={firstShot.alt} loading="eager" />
+          <figcaption>{firstShot.caption}</figcaption>
+        </figure>
+      )}
+    </div>
+  </section>
+
+  {restShots.length > 0 && (
+    <section id="the-product" class="product-screens">
+      <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+        <div class="product-screens__head">
+          <p class="hs-elevate-tag">The product</p>
+          <p>Captured from the running system — not a mockup.</p>
+        </div>
+        <div class="product-screens__grid">
+          {restShots.map((s) => (
+            <figure class="product-screens__card">
+              {s.src && <img src={s.src} alt={s.alt} loading="lazy" />}
+              <figcaption>{s.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="product-build">
+    <div class="product-build__inner hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+      <div class="product-build__copy">
+        <p class="hs-elevate-tag">How it's built</p>
+        {p.architecture.map((para) => <p>{para}</p>)}
+        {p.stack?.length > 0 && (
+          <ul class="product-build__stack">
+            {p.stack.map((s) => <li>{s}</li>)}
+          </ul>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    tone="dark"
+    eyebrow="On request, not on a schedule"
+    heading={`The cluster behind ${p.name} comes up when someone asks to see it. Ask.`}
+    ctaPrimary={{ label: 'Request a live walkthrough', href: walkthrough }}
+    ctaSecondary={{ label: 'See the rest of the systems', href: '/' }}
+  />
+</ElevateBase>
+
+<style>
+  .product-hero { background:#edf6fa; overflow:hidden; padding:150px 0 78px; }
+  .product-hero__inner { display:grid; grid-template-columns:minmax(0,.95fr) minmax(420px,1.05fr); align-items:center; gap:72px; }
+  .product-hero__index { margin:0 0 28px; color:#156582; font-size:11px; font-weight:700; letter-spacing:.14em; }
+  .product-hero h1 { margin:14px 0 22px; max-width:12ch; color:#062b43; font-size:clamp(48px,5vw,80px); line-height:.98; letter-spacing:-.06em; }
+  .product-hero__intro { max-width:48ch; margin:0; color:#34546a; font-size:19px; line-height:1.55; }
+  .product-hero__actions { display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin-top:32px; }
+  .product-hero__text-link { color:#062b43; font-size:14px; font-weight:700; letter-spacing:.04em; text-decoration:none; }
+  .product-hero__text-link span { color:#0d7594; margin-left:6px; }
+  .product-hero__visual { position:relative; margin:0; padding:14px 0 0 14px; }
+  .product-hero__visual::before { content:""; position:absolute; inset:0 14px 14px 0; background:#0a4b69; border-radius:16px; transform:translate(16px,16px); }
+  .product-hero__visual img { position:relative; z-index:1; display:block; width:100%; min-height:330px; max-height:510px; object-fit:cover; border-radius:16px; box-shadow:0 28px 80px rgba(4,42,63,.2); }
+  .product-hero__visual figcaption { position:relative; z-index:1; padding-top:13px; color:#638092; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+
+  .product-screens { padding:100px 0; background:#fff; }
+  .product-screens__head { display:grid; grid-template-columns:1fr minmax(280px,520px); gap:48px; align-items:start; margin-bottom:48px; }
+  .product-screens__head p:last-child { margin:0; color:#4b6879; font-size:18px; line-height:1.55; }
+  .product-screens__grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px; }
+  .product-screens__card { margin:0; }
+  .product-screens__card img {
+    display:block; width:100%; height:280px; object-fit:cover; border-radius:14px;
+    box-shadow:0 20px 50px rgba(6,43,67,.14);
+  }
+  .product-screens__card figcaption { margin-top:14px; color:#587283; font-size:14.5px; line-height:1.5; }
+
+  .product-build { padding:92px 0; background:#062b43; color:#fff; }
+  .product-build__inner { display:block; }
+  .product-build__copy { max-width:760px; }
+  .product-build__copy .hs-elevate-tag { color:#8ed6ea; }
+  .product-build__copy p {
+    margin:18px 0 0; color:rgba(255,255,255,.82); font-size:17px; line-height:1.65;
+  }
+  .product-build__copy p:first-of-type { margin-top:16px; }
+  .product-build__stack {
+    display:flex; flex-wrap:wrap; gap:10px; list-style:none; margin:28px 0 0; padding:0;
+  }
+  .product-build__stack li {
+    padding:8px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.22);
+    color:#cfe9f2; font-size:13px; font-weight:600; letter-spacing:.02em;
+  }
+
+  @media (max-width:900px) {
+    .product-hero { padding-top:122px; }
+    .product-hero__inner { grid-template-columns:1fr; gap:48px; }
+    .product-hero__visual { max-width:720px; }
+    .product-screens__grid { grid-template-columns:1fr; }
+    .product-screens__head { grid-template-columns:1fr; gap:16px; }
+  }
+  @media (max-width:560px) {
+    .product-hero { padding:112px 0 60px; }
+    .product-hero__inner { gap:38px; }
+    .product-hero h1 { font-size:50px; }
+    .product-hero__intro { font-size:17px; }
+    .product-hero__visual img { min-height:220px; }
+    .product-screens, .product-build { padding:68px 0; }
+  }
+</style>
