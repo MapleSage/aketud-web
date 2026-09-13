@@ -17,22 +17,34 @@ the split. Porting the product pages to Elevate is open work, not done here.
 
 ## Branding
 
-The supplied **A + AKETUD** lockup is installed across the shared site chrome:
+The current **A + trend-line + AKETUD** lockup (icon, black badge, wordmark,
+no tagline) is installed across the shared site chrome. Several brand-asset
+rounds preceded this one — see git history on `public/admin/config.yml`-
+adjacent commits if you need the older black-badge-with-tagline or
+stacked-icon-over-wordmark iterations.
 - `public/aketud-logo-blue.png` and `public/aketud-logo-white.png` are the
-  primary deep-blue and inverse lockups used by the shared headers and
-  footers — cropped/recolored derivatives of the supplied
-  `public/Aketud-logo-2.svg` (a white lockup + tagline on a black badge,
-  meant for dark backgrounds; the blue variant recolors the wordmark/tagline
-  to platform blue while keeping the badge black, for use on the light
-  header). `scripts/generate_aketud_blue_assets.py` no longer reflects how
-  these are produced — it reads from `public/brand/aketud-logo-source.png`,
-  which is a separate, earlier source than `Aketud-logo-2.svg`.
+  primary navy and inverse lockups used by the shared headers and footers —
+  cropped/recolored derivatives of the supplied
+  `public/Aketud.favicon.v2.svg` (a white lockup on a black badge, meant for
+  dark backgrounds; the navy variant recolors the wordmark to platform navy
+  `#001B3D` while keeping the badge black, for use on the light header).
+  `scripts/generate_aketud_blue_assets.py` no longer reflects how these are
+  produced — it reads from `public/brand/aketud-logo-source.png`, an
+  unrelated, earlier source.
 - `public/favicon.svg`/`.ico`/`favicon-*.png` (browser tab icons) are a
   cropped, transparent-background render of the supplied
-  `public/Aketud-Favicon-1.2.svg`, in platform blue. `apple-touch-icon.png`,
-  `icon-512.png`, and `pwa-maskable-512x512.png` (opaque app-icon contexts)
-  composite the same mark in white onto a rounded platform-blue tile, matching
-  the old tile treatment.
+  `public/Aketud New Logo Design (Logo).svg` — a two-tone mark (navy
+  pyramid + teal trend-line), which needed a chroma-key pass first: the
+  source file renders with an unintended opaque black rectangle behind the
+  mark (present at every render resolution tried; not an antialiasing
+  fluke), so pure-black pixels are dropped before cropping.
+  `apple-touch-icon.png`, `icon-512.png`, `pwa-maskable-512x512.png`, and
+  `favicon.png` (opaque app-icon contexts) composite the same cleaned mark
+  onto a rounded off-white tile — a dark tile doesn't work here since the
+  mark's own navy is dark. A mono-teal alternative was also tried
+  (`public/Aketud teal-favicon.svg` → cleaned copy at
+  `public/aketud-favicon-teal-mono.png`) but reads poorly against dark
+  backgrounds, so it isn't wired in anywhere — the two-tone version is.
 - `src/styles/brands/aketud.css` supplies the platform-led tonal blue palette:
   midnight application chrome, cloud-blue surfaces, and restrained operational
   teal. The homepage has an AKETUD-specific “AI You Can Accept” hero while
