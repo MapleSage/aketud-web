@@ -33,10 +33,15 @@ Remaining brand and site caveats:
   `terms.astro`) says "AKETUD" but was written for MapleSage originally —
   have this reviewed by whoever owns AKETUD's actual legal entity/policies
   before treating it as real.
-- `public/admin/config.yml` (Sveltia CMS) still describes the parent repo's
-  content model (blog, retail pages, etc.) — most of those collections no
-  longer exist here. Not rewritten yet; the CMS admin at `/admin` will show
-  broken sections until this is fixed.
+- `public/admin/config.yml` (Sveltia CMS) is now rewritten for this repo:
+  `backend.repo`/`base_url`/`site_url`/`display_url` point at
+  `MapleSage/aketud-web` and `aketud.com` (they previously pointed at
+  `maplesage-web` / `maplesage.com`, which is why `/admin` opened and edited
+  the old site), and the `pages`/`products`/`settings` collections match
+  this repo's actual `src/content/*` schema instead of the parent repo's
+  (blog, retail pages, etc., none of which exist here). Make sure the
+  GitHub OAuth App's callback URL is `https://www.aketud.com/oauth/callback`
+  to match the new `base_url`.
 
 ## Deploy
 
