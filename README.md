@@ -17,17 +17,19 @@ the split. Porting the product pages to Elevate is open work, not done here.
 
 ## Branding
 
-The current **A + trend-line + AKETUD** lockup (icon, black badge, wordmark,
+The current **A + trend-line + AKETUD** lockup (icon, wordmark, no badge,
 no tagline) is installed across the shared site chrome. Several brand-asset
 rounds preceded this one — see git history on `public/admin/config.yml`-
-adjacent commits if you need the older black-badge-with-tagline or
+adjacent commits if you need the older badged, tagline, or
 stacked-icon-over-wordmark iterations.
 - `public/aketud-logo-blue.png` and `public/aketud-logo-white.png` are the
   primary navy and inverse lockups used by the shared headers and footers —
-  cropped/recolored derivatives of the supplied
-  `public/Aketud.favicon.v2.svg` (a white lockup on a black badge, meant for
-  dark backgrounds; the navy variant recolors the wordmark to platform navy
-  `#001B3D` while keeping the badge black, for use on the light header).
+  cropped/recolored derivatives of the supplied `public/Aketud-logo.v.3.png`
+  (a plain white lockup, no badge, meant for dark backgrounds; the navy
+  variant recolors the whole mark to platform navy `#001B3D` for use on the
+  light header). Earlier rounds used an SVG with a black badge square behind
+  the icon and, before that, one with the same black-rectangle rendering bug
+  described below for the favicon — this PNG source has neither problem.
   `scripts/generate_aketud_blue_assets.py` no longer reflects how these are
   produced — it reads from `public/brand/aketud-logo-source.png`, an
   unrelated, earlier source.
