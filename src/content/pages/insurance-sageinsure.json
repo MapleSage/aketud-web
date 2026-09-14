@@ -1,8 +1,8 @@
 {
-  "metaTitle": "SageInsure AI — Claims Automation & Smart Underwriting — AKETUD",
+  "metaTitle": "Aketud AI — Claims Automation & Smart Underwriting — AKETUD",
   "metaDescription": "Multi-agent intelligence and GraphRAG-based automation for claims, underwriting, and customer engagement.",
   "eyebrow": "Insurance · Artificial Intelligence",
-  "title": "SageInsure AI",
+  "title": "Aketud AI",
   "intro": "Transforming insurance operations through intelligent automation and context-aware processing — multi-agent intelligence with GraphRAG technology behind claims, underwriting, and customer engagement.",
   "steps": [
     { "heading": "Claims Automation", "body": "Automated document analysis and intelligent claims routing that reduces processing time without reducing accuracy." },

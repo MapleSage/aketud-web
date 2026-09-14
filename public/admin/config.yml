@@ -192,7 +192,7 @@ collections:
         fields: *pillarFields
 
       - name: sageinsure
-        label: "Insurance — SageInsure"
+        label: "Insurance — Aketud AI"
         file: src/content/pages/insurance-sageinsure.json
         fields: *pillarFields
 
